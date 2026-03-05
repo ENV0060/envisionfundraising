@@ -7,8 +7,78 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- STICKY NAV SCROLL EFFECT ---------- */
   const nav = document.querySelector('.site-nav');
   if (nav) {
+    // Lerp between two RGB colors
+    const lerpColor = (a, b, t) => [
+      Math.round(a[0] + (b[0] - a[0]) * t),
+      Math.round(a[1] + (b[1] - a[1]) * t),
+      Math.round(a[2] + (b[2] - a[2]) * t)
+    ];
+
+    // Sample the background gradient color at a given scroll ratio (0-1)
+    const sampleGradient = (ratio, stops) => {
+      const t = Math.max(0, Math.min(1, ratio));
+      for (let i = 0; i < stops.length - 1; i++) {
+        if (t >= stops[i][1] && t <= stops[i + 1][1]) {
+          const localT = (t - stops[i][1]) / (stops[i + 1][1] - stops[i][1]);
+          return lerpColor(stops[i][0], stops[i + 1][0], localT);
+        }
+      }
+      return stops[stops.length - 1][0];
+    };
+
+    // Build gradient stops from sections on the page
+    const getPageStops = () => {
+      const pageHeight = document.documentElement.scrollHeight;
+      const sections = document.querySelectorAll('section, footer');
+      const stops = [];
+
+      sections.forEach(section => {
+        const top = section.offsetTop / pageHeight;
+        const style = getComputedStyle(section);
+        // Create a temp canvas to resolve the background color
+        const bg = style.backgroundColor;
+        if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+          const match = bg.match(/\d+/g);
+          if (match) stops.push([[+match[0], +match[1], +match[2]], top]);
+        }
+      });
+
+      // Fallback: page-level gradient colors for team page
+      if (stops.length === 0) {
+        return [
+          [[11, 31, 58], 0],     // --navy
+          [[17, 24, 48], 0.3],
+          [[15, 21, 40], 0.5],
+          [[12, 16, 32], 0.7],
+          [[10, 14, 26], 1.0]
+        ];
+      }
+      return stops;
+    };
+
+    // Softened gradient stops (navy → softer dark)
+    const defaultStops = [
+      [[11, 31, 58], 0],      /* #0B1F3A */
+      [[15, 28, 53], 0.15],   /* #0F1C35 */
+      [[13, 25, 48], 0.30],   /* #0D1930 */
+      [[11, 22, 40], 0.50],   /* #0B1628 */
+      [[10, 20, 36], 0.70],   /* #0a1424 */
+      [[9, 19, 32], 0.85],    /* #091320 */
+      [[8, 18, 32], 1.0]      /* #081220 */
+    ];
+
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
+      const scrollY = window.scrollY;
+      nav.classList.toggle('scrolled', scrollY > 60);
+
+      if (scrollY > 60) {
+        const ratio = scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        const color = sampleGradient(ratio, defaultStops);
+        const rgb = `${color[0]}, ${color[1]}, ${color[2]}`;
+        nav.style.background = `linear-gradient(to bottom, rgb(${rgb}) 0%, rgb(${rgb}) 50%, rgba(${rgb}, 0) 100%)`;
+      } else {
+        nav.style.background = '';
+      }
     });
   }
 
@@ -64,8 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: 0.05,
+      rootMargin: '0px 0px -20px 0px'
     });
 
     revealElements.forEach(el => revealObserver.observe(el));

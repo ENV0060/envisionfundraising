@@ -151,12 +151,8 @@ ul {
 }
 
 .site-nav.scrolled {
-  background: rgba(28, 28, 46, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(212, 168, 75, 0.15);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+  padding: 14px 0 42px;
+  /* background set dynamically by JS to match page gradient */
 }
 
 .nav-inner {
@@ -267,12 +263,13 @@ ul {
   right: -360px;
   width: 340px;
   height: 100vh;
-  background: rgba(11, 31, 58, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: linear-gradient(160deg, rgba(35, 35, 60, 0.85) 0%, rgba(20, 20, 40, 0.92) 100%);
+  backdrop-filter: blur(40px) saturate(1.4);
+  -webkit-backdrop-filter: blur(40px) saturate(1.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
   z-index: 998;
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -4px 0 40px rgba(0, 0, 0, 0.3);
+  box-shadow: -6px 0 50px rgba(0, 0, 0, 0.5), inset 1px 0 40px rgba(255, 255, 255, 0.05);
   overflow-y: auto;
 }
 
@@ -1019,14 +1016,17 @@ a.location-card {
    SUB-PAGE HERO
    ============================================ */
 .page-hero {
-  background: var(--navy);
-  padding: 160px 0 80px;
+  background:
+    /* Top vignette — darkens area below nav for separation */
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.08) 30%, transparent 60%),
+    var(--navy);
+  padding: 130px 0 50px;
   text-align: center;
 }
 
 .page-hero h1 {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
   font-weight: 900;
   color: var(--white);
   margin-bottom: 20px;
@@ -1309,7 +1309,9 @@ a.location-card {
    AUDIENCE PATH CARDS
    ============================================ */
 .paths-section {
-  background: radial-gradient(ellipse at 50% 30%, rgba(212,168,75,0.015) 0%, transparent 55%);
+  background:
+    /* Subtle gold glow behind heading */
+    radial-gradient(ellipse at 50% 30%, rgba(212,168,75,0.015) 0%, transparent 55%);
   padding: var(--section-pad);
   position: relative;
 }
@@ -1392,6 +1394,194 @@ a.location-card {
 
 .path-card:hover .path-arrow {
   transform: translateX(3px);
+}
+
+/* ============================================
+   SUB-PAGE LIGHT THEME
+   Content sections on sub-pages use off-white backgrounds
+   for better readability. Nav, footer, page-hero, and
+   paths-section remain dark for brand consistency.
+   ============================================ */
+
+/* --- Team Page — Body-level gradient (no section seams) --- */
+body.team-page {
+  background:
+    /* Crosshatch texture */
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 255, 255, 0.007) 3px, rgba(255, 255, 255, 0.007) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255, 255, 255, 0.005) 3px, rgba(255, 255, 255, 0.005) 4px),
+    /* Full-page gradient — navy through deep dark */
+    linear-gradient(to bottom, #0B1F3A 0%, #0F1C35 15%, #0D1930 30%, #0B1628 50%, #0a1424 70%, #091320 85%, #081220 100%);
+}
+
+/* --- Wrapper spans both team + paths — overlays cover both seamlessly --- */
+.team-paths-wrapper {
+  background:
+    /* Soft vignette */
+    radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.15) 100%),
+    /* Subtle warm gold glow */
+    radial-gradient(ellipse at 50% 25%, rgba(212, 168, 75, 0.04) 0%, transparent 55%),
+    /* Teal/blue glow lower half */
+    radial-gradient(ellipse at 50% 75%, rgba(30, 80, 120, 0.08) 0%, transparent 45%);
+  position: relative;
+}
+
+/* Seamless hero blend — navy fades into wrapper top */
+.team-paths-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, var(--navy) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Both sections transparent — body gradient + wrapper overlays show through */
+.team-section {
+  background: transparent;
+  position: relative;
+  padding-top: 50px;
+}
+
+.team-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.team-section + .paths-section {
+  background: transparent;
+}
+
+/* Cards — dark translucent with glow */
+.team-featured-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 2px solid rgba(212, 168, 75, 0.3);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0 0 60px rgba(212, 168, 75, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.team-featured-card:hover {
+  transform: translateY(-6px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    0 20px 60px rgba(0, 0, 0, 0.2),
+    0 0 80px rgba(212, 168, 75, 0.06);
+  border-color: rgba(212, 168, 75, 0.15);
+  border-top-color: rgba(212, 168, 75, 0.45);
+}
+
+/* Photo circle — gold glow ring */
+.team-featured-photo {
+  box-shadow:
+    0 0 0 4px rgba(212, 168, 75, 0.1),
+    0 0 25px rgba(212, 168, 75, 0.15),
+    0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Text — light on dark */
+.team-featured-info h3 {
+  color: var(--white);
+}
+
+.team-featured-info p {
+  color: var(--grey-text);
+}
+
+.team-featured-quote {
+  color: var(--off-white);
+  padding: 12px 16px;
+  background: linear-gradient(to right, rgba(212, 168, 75, 0.08) 0%, transparent 60%);
+  border-radius: 0 8px 8px 0;
+}
+
+.team-featured-role {
+  color: var(--gold);
+}
+
+/* --- About Section (about.html) --- */
+.about-section {
+  background: var(--off-white);
+}
+
+.about-section .section-heading h2 {
+  color: var(--charcoal);
+}
+
+.about-section .section-heading p {
+  color: #666;
+}
+
+.about-intro {
+  color: #555;
+}
+
+.about-card {
+  background: var(--white);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.about-card:hover {
+  background: var(--white);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.about-card h3 {
+  color: var(--charcoal);
+}
+
+.about-card p {
+  color: #555;
+}
+
+/* --- Partner Content Page (partner.html) --- */
+.content-page {
+  background: var(--off-white);
+}
+
+.content-main h2 {
+  color: var(--charcoal);
+}
+
+.content-main .lead {
+  color: var(--charcoal);
+}
+
+.content-main p {
+  color: #555;
+}
+
+.feature-list li {
+  color: var(--charcoal);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+.sidebar-card {
+  background: var(--white);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.sidebar-card h3 {
+  color: var(--gold);
+}
+
+.sidebar-card p {
+  color: #555;
+}
+
+.sidebar-card blockquote {
+  color: var(--charcoal);
+}
+
+.sidebar-card .script-label {
+  color: var(--gold);
 }
 
 /* ============================================
@@ -1527,6 +1717,10 @@ a.location-card {
 @media (max-width: 768px) {
   :root {
     --section-pad: 70px 0;
+  }
+
+  .site-nav.scrolled {
+    padding: 10px 0 32px;
   }
 
   /* Nav links already removed from HTML — dropdown handles all navigation */
@@ -1680,7 +1874,10 @@ a.location-card {
     margin-bottom: 0;
   }
 
-  /* Team */
+  /* Team — refined light theme mobile */
+  .team-section::before {
+    height: 140px;
+  }
   .team-featured-card {
     padding: 24px;
     gap: 24px;
@@ -1688,10 +1885,6 @@ a.location-card {
   .team-featured-photo {
     width: 160px;
     height: 160px;
-  }
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
   }
 
   /* Testimonials */
@@ -1742,14 +1935,15 @@ a.location-card {
     width: 150px;
     height: 150px;
   }
+  .team-section::before {
+    height: 100px;
+  }
   .team-featured-quote {
     border-left: none;
     padding-left: 0;
     border-top: 2px solid var(--gold);
     padding-top: 12px;
-  }
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    background: linear-gradient(to bottom, rgba(212, 168, 75, 0.08) 0%, transparent 70%);
+    border-radius: 0;
   }
 }

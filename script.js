@@ -7,14 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- STICKY NAV SCROLL EFFECT ---------- */
   const nav = document.querySelector('.site-nav');
   if (nav) {
-    // Lerp between two RGB colors
     const lerpColor = (a, b, t) => [
       Math.round(a[0] + (b[0] - a[0]) * t),
       Math.round(a[1] + (b[1] - a[1]) * t),
       Math.round(a[2] + (b[2] - a[2]) * t)
     ];
 
-    // Sample the background gradient color at a given scroll ratio (0-1)
     const sampleGradient = (ratio, stops) => {
       const t = Math.max(0, Math.min(1, ratio));
       for (let i = 0; i < stops.length - 1; i++) {
@@ -26,54 +24,28 @@ document.addEventListener('DOMContentLoaded', () => {
       return stops[stops.length - 1][0];
     };
 
-    // Build gradient stops from sections on the page
-    const getPageStops = () => {
-      const pageHeight = document.documentElement.scrollHeight;
-      const sections = document.querySelectorAll('section, footer');
-      const stops = [];
-
-      sections.forEach(section => {
-        const top = section.offsetTop / pageHeight;
-        const style = getComputedStyle(section);
-        // Create a temp canvas to resolve the background color
-        const bg = style.backgroundColor;
-        if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
-          const match = bg.match(/\d+/g);
-          if (match) stops.push([[+match[0], +match[1], +match[2]], top]);
-        }
-      });
-
-      // Fallback: page-level gradient colors for team page
-      if (stops.length === 0) {
-        return [
-          [[11, 31, 58], 0],     // --navy
-          [[17, 24, 48], 0.3],
-          [[15, 21, 40], 0.5],
-          [[12, 16, 32], 0.7],
-          [[10, 14, 26], 1.0]
+    // Pick gradient stops based on page
+    const isNavyPage = document.body.classList.contains('team-page') || document.body.classList.contains('partner-page');
+    const gradientStops = isNavyPage
+      ? [ /* Navy-based — team page body gradient */
+          [[11, 31, 58], 0],    [[15, 28, 53], 0.15],
+          [[13, 25, 48], 0.30], [[11, 22, 40], 0.50],
+          [[10, 20, 36], 0.70], [[9, 19, 32], 0.85],
+          [[8, 18, 32], 1.0]
+        ]
+      : [ /* Charcoal-based — homepage/default body gradient (darkened to match vignette) */
+          [[22, 22, 36], 0],    [[20, 20, 34], 0.15],
+          [[17, 17, 30], 0.30], [[14, 14, 26], 0.50],
+          [[11, 11, 22], 0.70], [[9, 9, 18], 0.85],
+          [[7, 7, 15], 1.0]
         ];
-      }
-      return stops;
-    };
-
-    // Softened gradient stops (navy → softer dark)
-    const defaultStops = [
-      [[11, 31, 58], 0],      /* #0B1F3A */
-      [[15, 28, 53], 0.15],   /* #0F1C35 */
-      [[13, 25, 48], 0.30],   /* #0D1930 */
-      [[11, 22, 40], 0.50],   /* #0B1628 */
-      [[10, 20, 36], 0.70],   /* #0a1424 */
-      [[9, 19, 32], 0.85],    /* #091320 */
-      [[8, 18, 32], 1.0]      /* #081220 */
-    ];
 
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
       nav.classList.toggle('scrolled', scrollY > 60);
-
       if (scrollY > 60) {
         const ratio = scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-        const color = sampleGradient(ratio, defaultStops);
+        const color = sampleGradient(ratio, gradientStops);
         const rgb = `${color[0]}, ${color[1]}, ${color[2]}`;
         nav.style.background = `linear-gradient(to bottom, rgb(${rgb}) 0%, rgb(${rgb}) 50%, rgba(${rgb}, 0) 100%)`;
       } else {
@@ -82,6 +54,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  /* ---------- "INSPIRE CHANGE." WATERMARK BOOST ---------- */
+  const heroLogo = document.querySelector('.hero-logo');
+  if (heroLogo) {
+    // After the 6s intro animation completes, add a separate element that shows
+    // just "Inspire Change." at higher opacity (not capped by parent's 0.06).
+    // Uses setTimeout instead of animationend to avoid duplicate firing issues.
+    setTimeout(() => {
+      if (document.querySelector('.inspire-boost')) return;
+      const boost = document.createElement('div');
+      boost.classList.add('inspire-boost');
+      // Match position and size of the watermark logo at its final state
+      const logoImg = heroLogo.querySelector('img');
+      const style = getComputedStyle(heroLogo);
+      boost.style.top = style.top;
+      boost.style.left = style.left;
+      boost.style.transform = style.transform;
+      boost.style.width = logoImg.offsetWidth + 'px';
+      boost.style.height = logoImg.offsetHeight + 'px';
+      // Clone the image
+      const img = logoImg.cloneNode();
+      img.style.width = '100%';
+      img.style.height = '100%';
+      boost.appendChild(img);
+      heroLogo.parentElement.appendChild(boost);
+      // Trigger fade in
+      requestAnimationFrame(() => boost.classList.add('visible'));
+    }, 6100);
+  }
 
   /* ---------- DROPDOWN MENU PANEL ---------- */
   const menuToggle = document.querySelector('.menu-toggle');

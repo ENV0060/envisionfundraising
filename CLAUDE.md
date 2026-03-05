@@ -40,6 +40,10 @@ Envision - Website/
 ├── Photos/                 # Team & brand photos
 │   ├── John MacInnis.png
 │   ├── Aidan Hughes.jpeg
+│   ├── Oliver Beatty.png
+│   ├── Micahel Beatty.jpg    (note: filename typo preserved)
+│   ├── Megan White.jpg
+│   ├── Krystal Shannon.jpg
 │   ├── Envision Logo.jpg
 │   └── Envision Logo - Inspire Change.png
 ├── index-new-logo.html     # Save state: [ENVISION] CSS text logo version
@@ -83,11 +87,15 @@ Ruby HTTP server on port 8080. Config in `.claude/launch.json`:
 
 To view on phone: same Wi-Fi network, navigate to `http://<laptop-ip>:8080`.
 
+## Git
+- Remote: GitHub (`origin`)
+- **Push command**: `git -c credential.helper= push` — bypasses macOS Keychain credential helper which caches stale tokens. Uses inline token auth instead.
+
 ## Homepage (index.html)
 
 8 sections including decorative curve dividers (stripped down from earlier 10-section version):
 
-1. **Navigation** — Fixed sticky nav with Inspire Change logo image (`Photos/Envision Logo - Inspire Change.png`, `filter: invert(1)`, 36px height) + hamburger only (no visible nav-links on homepage). Hamburger opens a slide-in dropdown panel from the right. Dropdown contains: audience links (Partner With Us, Launch Your Campaign, Join a Team Near You), divider, About Us, Meet the Team, Careers, FAQs, Get In Touch button, and social icons. Audience links in dropdown use class `dropdown-audience-links`. SVG inside button has `pointer-events: none` to fix click propagation. Scrolled state: lighter charcoal background (`rgba(28, 28, 46, 0.94)`) with subtle gold bottom border for separation.
+1. **Navigation** — Fixed sticky nav with Inspire Change logo image (`Photos/Envision Logo - Inspire Change.png`, `filter: invert(1)`, 36px height) + hamburger only (no visible nav-links on homepage). Hamburger opens a slide-in dropdown panel from the right. Dropdown contains: audience links (Partner With Us, Launch Your Campaign, Join a Team Near You), divider, About Us, Meet the Team, Careers, FAQs, Get In Touch button, and social icons. Audience links in dropdown use class `dropdown-audience-links`. SVG inside button has `pointer-events: none` to fix click propagation. Scrolled state: **dynamic JS-driven background** that samples the body gradient at the current scroll position, creating a seamless color match (no visible border or hard line). Desktop padding `14px 0 42px`, mobile `10px 0 32px`.
 
 2. **Hero** — Full-viewport with animated intro sequence using **Inspire Change logo** (`Photos/Envision Logo - Inspire Change.png`):
    - Single image with `filter: invert(1)` + `mix-blend-mode: screen` for dark background rendering
@@ -98,9 +106,10 @@ To view on phone: same Wi-Fi network, navigate to `http://<laptop-ip>:8080`.
    - **Phase 2 (22–30%)**: Polygon animates to reveal "Inspire Change." tagline
    - **Phase 3**: Gold shimmer sweeps across full logo (`logo-shimmer` 1.75s at 1.63s delay, overlay blend mode)
    - **Phase 4 (56–71%)**: Logo drifts down from center to watermark position above ticker (`top: 50%` → `calc(100% - 65px)`), fades to 6% opacity
+   - **Phase 5 (after animation ends)**: JS creates a separate `.inspire-boost` element (cloned logo image with `clip-path: polygon(58% 78%, 100% 78%, 100% 100%, 58% 100%)`) that isolates just the "Inspire Change." text at 0.30 opacity — brighter than the 0.06 watermark but dimmer than normal text. Must be a separate DOM element outside `.hero-logo` because parent opacity (0.06) caps all children.
    - **Hero text** fades in staggered at 4.0s, 4.3s, 4.6s (`hero-text-in` keyframe with scale+translateY)
    - Full animation: 6s `logo-intro` keyframe
-   - Tagline: "Fundraising That Moves People.", subtitle, three CTA buttons (Partner With Us, Launch Your Campaign, Join a Team Near You)
+   - Tagline: "Fundraising That Inspires Change." (changed from "Moves People"), subtitle, three CTA buttons (Partner With Us, Launch Your Campaign, Join a Team Near You)
    - Background: textured charcoal with vignette, subtle gold glow, faint crosshatch texture
    - Desktop hero padding: `70px 20px 0` (reduced from 100px for better vertical centering)
    - **City ticker** at bottom of hero (not a separate section): gold gradient bar with scrolling city names + year labels (Ottawa 2016, Toronto 2017, Vancouver 2018, Calgary 2020, Edmonton 2021, Halifax 2025, Columbus 2025, Windsor 2025). Bar has `box-shadow` glow for softened edges.
@@ -127,7 +136,7 @@ The homepage uses several layered techniques to create a sense of scroll progres
 - **Gold curved dividers**: Thin gold SVG stroke curves above and below the Locations section. Strokes use horizontal `linearGradient` (transparent → 0.5 opacity gold → transparent) so edges fade naturally with no hard lines.
 - **Stationary gold glow**: Radial gradient ellipse behind "How Can We Help You?" heading using `.paths-glow::before` with `mix-blend-mode: screen`.
 - **Curved ticker glow**: Full-width `radial-gradient(ellipse)` below the gold ticker bar, creating a curved fade rather than a flat line.
-- **Scrolled nav**: Lighter charcoal with gold `border-bottom` for clear separation against page content.
+- **Dynamic scrolled nav**: JS samples the body gradient at current scroll position for seamless color matching (no border, no backdrop-filter — just gradient-matched background).
 
 ### Removed from Homepage (moved to sub-pages)
 - Charity Logo Wall (logos still in `Charity Logos/` folder, not displayed anywhere currently)
@@ -148,23 +157,38 @@ About Us page with:
 
 ### team.html (Complete)
 Meet the Team page with:
+- `<body class="team-page">` for page-specific styling (body-level navy gradient, JS nav color stops)
 - **Page Hero**: "Meet the Team" heading
-- **Featured Founders** (`.team-featured`): Side-by-side photo + bio cards for:
+- **`.team-paths-wrapper`**: Wraps both `.team-section` and `.paths-section` in a single div so radial gradient overlays (vignette, gold glow, teal glow) span both sections seamlessly — eliminates the visible seam that occurred when overlays were on separate elements. Both sections have `background: transparent` so the body gradient + wrapper overlays show through.
+  - `::before` pseudo-element creates a dark navy veil (200px) that fades the page-hero into the team section
+- **Featured Team** (`.team-featured`): Side-by-side photo + bio cards for:
   - John MacInnis — CEO & Founder (real photo: `Photos/John MacInnis.png`)
   - Aidan Hughes — Vice President (real photo: `Photos/Aidan Hughes.jpeg`)
+  - Oliver Beatty — Director Liaison & Analytics (real photo: `Photos/Oliver Beatty.png`) — full bio + quote ("Fear in the face of adversity...")
+  - Michael Beatty — Payroll & Administration (real photo: `Photos/Micahel Beatty.jpg`) [description placeholder]
+  - Megan White — Campaign Coordinator (real photo: `Photos/Megan White.jpg`)
+  - Krystal Shannon — Hiring & Communications (real photo: `Photos/Krystal Shannon.jpg`) [description placeholder]
   - Even-numbered cards use `flex-direction: row-reverse` for alternating layout
   - Each has circular photo (200px, gold border), bio text, and italic quote
-- **Supporting Team** (`.team-grid`): 4-column grid with placeholder cards (Operations Lead, City Manager Toronto, City Manager Vancouver, Training & Development)
-- **CTA Path Cards**: "Want to Join Us?" with 3 path cards
+- **CTA Section**: "Curious About Careers?" with editorial two-column layout (`.team-cta-row`):
+  - "For Fundraisers" → Join a Team Near You → `join.html`
+  - "For Leaders" → Launch an Office → `partner.html`
+  - Gold top border with animated reveal on hover (`::before` width 0→100%)
+  - Mobile: stacks single column, leaders first (CSS `order` swap)
 - Shared footer + nav with visible nav-links
 
 ### partner.html (Complete)
 Partner With Us page for fundraising directors:
+- `<body class="partner-page">` for page-specific dark navy theme (matches team page)
 - **Page Hero**: "Better Pay, More Support, Less Work." + "What's stopping you?"
-- **Content + Sidebar Layout** (`.content-layout`): 2-column grid (main content + 380px sticky sidebar)
-  - **Main content**: "The deal is simple." heading, body copy about the partnership model, 8-item feature checklist (`.feature-list` with checkmark bullets), "Let's Talk" CTA
-  - **Sidebar**: 4 script/pitch cards (Elevator Pitch, Recruiter Hook, Director Pitch, The Closer) — each with a label + blockquote
-- **CTA Section**: "Not a Director?" with 3 path cards (Work With Us, Join Our Team, Meet the Team)
+- **`.partner-content-wrapper`**: Wraps all content sections + CTA (same pattern as `.team-paths-wrapper`). Has radial gradient overlays (vignette, gold glow, teal glow) + `::before` navy veil for hero blend.
+- **Two-column details grid** (`.partner-details-grid`): Text left, features right, `align-items: center`
+  - **Left column** (`.partner-text-col`): "The deal is simple." heading, lead text, intro paragraph, inline pull-quote blockquote (`.partner-pullquote` — gold left border + warm glow), philosophy paragraphs, "Let's Talk" CTA
+  - **Right column** (`.partner-features-panel`): Frosted glass card with gold top border, "What You Get" label, 8-item feature checklist (`.feature-list` with checkmark bullets)
+  - Mobile: stacks to single column at 768px
+- **CTA Section**: "Not a Director?" with editorial two-column layout (reuses `.team-cta-row` / `.team-cta-block`):
+  - "For Charities" → Work With Us → `charities.html`
+  - "For Individuals" → Join Our Team → `join.html`
 - Shared footer + nav with visible nav-links
 
 ## Navigation Differences: Homepage vs Sub-Pages
@@ -201,9 +225,10 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 
 ## Key JavaScript Features (script.js)
 
-- **Sticky nav**: Adds `.scrolled` class on scroll > 60px
+- **Dynamic nav color**: On scroll > 60px, adds `.scrolled` class and samples the body gradient at the current scroll ratio to set a seamless background color. Uses page-specific gradient stops: navy-based for `body.team-page` or `body.partner-page`, charcoal-based (darkened to match vignette overlay) for homepage/default. Background is a `linear-gradient(to bottom)` that fades to transparent at the bottom edge.
+- **"Inspire Change." watermark boost**: After 6.1s (via `setTimeout`, NOT `animationend` — pseudo-element animations bubble and cause double-fire), JS creates a `.inspire-boost` element — a cloned logo image with `clip-path` isolating just "Inspire Change." text — appended to the hero container (not inside `.hero-logo`) so it isn't capped by parent's 0.06 opacity. Fades in to 0.30 opacity. Includes `querySelector('.inspire-boost')` guard to prevent duplicates.
 - **Dropdown panel**: Creates overlay dynamically, open/close with toggle button, closes on overlay click or link click
-- **Scroll reveal**: IntersectionObserver with `.reveal` and `.reveal-children` classes, staggered delays via nth-child (up to 12 children)
+- **Scroll reveal**: IntersectionObserver with `.reveal` and `.reveal-children` classes, staggered delays via nth-child (up to 12 children). Threshold: 0.05, rootMargin: -20px (lowered from 0.15/-40px for better mobile triggering)
 - **Stats counter**: requestAnimationFrame with ease-out cubic curve, triggered by IntersectionObserver
 - **Mobile locations carousel**: 3D horizontal auto-scroll with manual touch override
 - **City ticker**: Duplicates innerHTML for seamless CSS animation loop
@@ -220,14 +245,17 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - `perspective` + `transform-style: preserve-3d` for 3D carousel
 - `will-change: transform, opacity` for GPU acceleration on carousel items
 - `scroll-snap-type: none` on mobile carousel (auto-scroll handles positioning)
-- `backdrop-filter: blur()` on nav and dropdown panel
-- Scrolled nav: gold `border-bottom` for separation against dark backgrounds
+- `backdrop-filter: blur()` on dropdown panel
+- Scrolled nav: dynamic JS-driven background (no border/blur/shadow — seamless gradient match)
 - Hero intro animation: `logo-intro` (6s, polygon clip-path reveal + drift), `logo-shimmer` (1.75s at 1.63s delay), `hero-text-in` (staggered at 4.0–4.6s)
 - `clip-path: polygon()` animation for progressive logo reveal — L-shaped polygon hides bottom-right ("Inspire Change.") while keeping left (brackets) fully visible, then collapses notch to reveal
 - `filter: invert(1)` + `mix-blend-mode: screen` on hero logo img and nav logo for dark background rendering
 - `mix-blend-mode: overlay` for hero logo shimmer effect
 - Footer link hover: `transform: scale(1.16)` with `transform-origin: left center`, contact links excluded
 - Location cards as `<a>` elements linking to `join.html`
+- **Wrapper div pattern** (`.team-paths-wrapper`, `.partner-content-wrapper`): When radial gradient overlays must span multiple sections seamlessly, wrap them in a single parent div with overlays on the parent and all sections set to `background: transparent`. Prevents visible seams at section boundaries (CSS backgrounds are confined to their element's bounding box).
+- **Editorial CTA pattern** (`.team-cta-row` / `.team-cta-block`): Two-column grid of link blocks with gold top border that animates to full width on hover via `::before` pseudo-element. Reused on both team.html and partner.html.
+- **`.inspire-boost`**: Separate DOM element for selectively boosting opacity of part of a watermark logo. Uses `clip-path: polygon()` to isolate specific text. Must be outside the parent element whose opacity is capped by animation.
 - Three responsive breakpoints: 1024px (tablet), 768px (mobile), 480px (small mobile)
 
 ## Charity Partners & Links
@@ -253,7 +281,8 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - `contact.html` — Contact page
 
 ### Placeholder Content to Replace
-- Supporting team member names, titles, and photos (`team.html` — 4 placeholder cards in `.team-grid`)
+- Team member descriptions & quotes still placeholder for: Michael Beatty, Krystal Shannon (`team.html`)
+- Supporting team grid section removed — all team members now in `.team-featured` cards
 - Testimonial names and roles (`about.html` — names are placeholder, roles say "[Charity Partner]" etc.)
 - Social media URLs (footer + dropdown — all currently `#`)
 - Contact info: phone number is `+1 (000) 000-0000`, office address is `[Office Address Placeholder]`

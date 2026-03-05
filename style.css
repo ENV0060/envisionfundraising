@@ -152,7 +152,7 @@ ul {
 
 .site-nav.scrolled {
   padding: 14px 0 42px;
-  /* background set dynamically by JS to match page gradient */
+  /* background set dynamically by JS on all pages */
 }
 
 .nav-inner {
@@ -409,6 +409,29 @@ ul {
 .hero-logo img {
   width: clamp(340px, 55vw, 650px);
   height: auto;
+  display: block;
+  filter: invert(1);
+  mix-blend-mode: screen;
+}
+
+/* "Inspire Change." boost — separate element outside .hero-logo so parent opacity doesn't cap it */
+.inspire-boost {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Clip to only "Inspire Change." area — bottom-right of logo */
+  clip-path: polygon(58% 78%, 100% 78%, 100% 100%, 58% 100%);
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.inspire-boost.visible {
+  opacity: 0.30;
+}
+
+.inspire-boost img {
   display: block;
   filter: invert(1);
   mix-blend-mode: screen;
@@ -1454,6 +1477,92 @@ body.team-page {
   background: transparent;
 }
 
+/* --- Team Page CTA — editorial two-column layout --- */
+.team-cta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.team-cta-block {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  padding: 36px 0;
+  border-top: 2px solid rgba(212, 168, 75, 0.3);
+  position: relative;
+  transition: border-color 0.4s ease;
+}
+
+.team-cta-block::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.5s ease;
+}
+
+.team-cta-block:hover::before {
+  width: 100%;
+}
+
+.team-cta-block:hover {
+  border-color: transparent;
+}
+
+.team-cta-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+.team-cta-block h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 14px;
+  transition: color 0.3s ease;
+}
+
+.team-cta-block:hover h3 {
+  color: var(--gold);
+}
+
+.team-cta-block p {
+  font-size: 0.92rem;
+  color: var(--grey-text);
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.team-cta-arrow {
+  display: inline-block;
+  font-size: 1.4rem;
+  color: var(--gold);
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.team-cta-block:hover .team-cta-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* Cards — dark translucent with glow */
 .team-featured-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.02) 100%);
@@ -1541,47 +1650,142 @@ body.team-page {
   color: #555;
 }
 
-/* --- Partner Content Page (partner.html) --- */
-.content-page {
-  background: var(--off-white);
+/* --- Partner Page — Dark theme (matches team page) --- */
+body.partner-page {
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 255, 255, 0.007) 3px, rgba(255, 255, 255, 0.007) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255, 255, 255, 0.005) 3px, rgba(255, 255, 255, 0.005) 4px),
+    linear-gradient(to bottom, #0B1F3A 0%, #0F1C35 15%, #0D1930 30%, #0B1628 50%, #0a1424 70%, #091320 85%, #081220 100%);
 }
 
-.content-main h2 {
-  color: var(--charcoal);
+/* Wrapper — overlays span all partner content seamlessly */
+.partner-content-wrapper {
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.15) 100%),
+    radial-gradient(ellipse at 50% 20%, rgba(212, 168, 75, 0.03) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 80%, rgba(30, 80, 120, 0.06) 0%, transparent 45%);
+  position: relative;
 }
 
-.content-main .lead {
-  color: var(--charcoal);
+/* Seamless hero blend */
+.partner-content-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, var(--navy) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.content-main p {
-  color: #555;
+/* --- Partner Details Grid: Text + Features --- */
+.partner-details {
+  background: transparent;
+  padding: 100px 0 80px;
+  position: relative;
+  z-index: 1;
 }
 
-.feature-list li {
-  color: var(--charcoal);
-  border-bottom-color: rgba(0, 0, 0, 0.06);
+.partner-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
 }
 
-.sidebar-card {
-  background: var(--white);
-  border-color: rgba(0, 0, 0, 0.06);
+/* Left text column */
+.partner-text-col h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 24px;
+  line-height: 1.2;
 }
 
-.sidebar-card h3 {
+.partner-text-col .lead {
+  font-size: 1.15rem;
+  color: var(--off-white);
+  font-weight: 600;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.partner-text-col p {
+  font-size: 1rem;
+  color: var(--grey-text);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+/* Inline pull-quote */
+.partner-pullquote {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.4;
+  padding: 28px 0 28px 28px;
+  margin: 32px 0;
+  border-left: 3px solid var(--gold);
+  position: relative;
+}
+
+.partner-pullquote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background: linear-gradient(to right, rgba(212, 168, 75, 0.06) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.partner-cta {
+  margin-top: 32px;
+}
+
+/* Features panel — subtle card */
+.partner-features-panel {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 2px solid rgba(212, 168, 75, 0.3);
+  border-radius: 16px;
+  padding: 32px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.partner-features-panel h3 {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
   color: var(--gold);
+  margin-bottom: 20px;
+  opacity: 0.8;
 }
 
-.sidebar-card p {
-  color: #555;
+.partner-features-panel .feature-list {
+  margin: 0;
 }
 
-.sidebar-card blockquote {
-  color: var(--charcoal);
+.partner-features-panel .feature-list li {
+  color: var(--off-white);
+  border-bottom-color: rgba(255, 255, 255, 0.04);
+  font-size: 0.95rem;
 }
 
-.sidebar-card .script-label {
-  color: var(--gold);
+/* Partner paths section — transparent bg */
+.partner-content-wrapper .paths-section {
+  background: transparent;
 }
 
 /* ============================================
@@ -1704,6 +1908,10 @@ body.team-page {
     grid-template-columns: 1fr;
     max-width: 500px;
     margin: 0 auto;
+  }
+
+  .team-cta-row {
+    gap: 36px;
   }
 
   .footer-inner {
@@ -1874,6 +2082,21 @@ body.team-page {
     margin-bottom: 0;
   }
 
+  /* Partner page — mobile layout */
+  .partner-details {
+    padding: 70px 0 60px;
+  }
+  .partner-details-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .partner-pullquote {
+    font-size: 1.2rem;
+  }
+  .partner-content-wrapper::before {
+    height: 140px;
+  }
+
   /* Team — refined light theme mobile */
   .team-section::before {
     height: 140px;
@@ -1895,6 +2118,25 @@ body.team-page {
   /* Paths */
   .paths-grid {
     grid-template-columns: 1fr;
+  }
+
+  .team-cta-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    max-width: 500px;
+  }
+
+  .team-cta-row .team-cta-block:first-child {
+    order: 2;
+  }
+
+  .team-cta-row .team-cta-block:last-child {
+    order: 1;
+  }
+
+  .team-cta-arrow {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   /* Footer */

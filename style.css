@@ -39,6 +39,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -158,7 +159,23 @@ ul {
 .nav-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  width: 94%;
+  max-width: 1400px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+/* When nav-links are visible (desktop), they handle the right-push — toggle just follows */
+@media (min-width: 769px) {
+  .nav-links ~ .menu-toggle {
+    margin-left: 0;
+  }
 }
 
 /* Logo placeholder */
@@ -168,36 +185,34 @@ ul {
 }
 
 .nav-logo img {
-  height: 36px;
+  height: 45px;
   width: auto;
   display: block;
   filter: invert(1);
 }
 
 /* Nav links */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
 .nav-links a {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: var(--off-white);
-  opacity: 0.85;
-  transition: opacity var(--transition), color var(--transition);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: opacity var(--transition), color var(--transition), letter-spacing 0.3s ease;
   position: relative;
+  padding: 6px 0;
 }
 
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: -4px;
-  left: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
-  height: 2px;
+  height: 1px;
   background: var(--gold);
   transition: width var(--transition);
 }
@@ -205,6 +220,7 @@ ul {
 .nav-links a:hover {
   opacity: 1;
   color: var(--white);
+  letter-spacing: 2.5px;
 }
 
 .nav-links a:hover::after {
@@ -246,6 +262,7 @@ ul {
   z-index: 1001;
   transition: color var(--transition);
   position: relative;
+  margin-left: auto;
 }
 
 .menu-toggle:hover {
@@ -260,7 +277,7 @@ ul {
 .dropdown-panel {
   position: fixed;
   top: 0;
-  right: -360px;
+  right: 0;
   width: 340px;
   height: 100vh;
   background: linear-gradient(160deg, rgba(35, 35, 60, 0.85) 0%, rgba(20, 20, 40, 0.92) 100%);
@@ -268,13 +285,14 @@ ul {
   -webkit-backdrop-filter: blur(40px) saturate(1.4);
   border-left: 1px solid rgba(255, 255, 255, 0.12);
   z-index: 998;
-  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: -6px 0 50px rgba(0, 0, 0, 0.5), inset 1px 0 40px rgba(255, 255, 255, 0.05);
   overflow-y: auto;
 }
 
 .dropdown-panel.open {
-  right: 0;
+  transform: translateX(0);
 }
 
 .dropdown-panel-inner {
@@ -414,9 +432,9 @@ ul {
   mix-blend-mode: screen;
 }
 
-/* "Inspire Change." boost — separate element outside .hero-logo so parent opacity doesn't cap it */
+/* "Inspire Change." boost — separate element outside .hero-logo so parent opacity doesn't cap it.
+   Position is set by JS (copied from hero-logo computed state) for exact alignment on all devices. */
 .inspire-boost {
-  position: absolute;
   z-index: 2;
   pointer-events: none;
   user-select: none;
@@ -433,6 +451,8 @@ ul {
 
 .inspire-boost img {
   display: block;
+  width: 100%;
+  height: auto;
   filter: invert(1);
   mix-blend-mode: screen;
 }
@@ -1337,6 +1357,7 @@ a.location-card {
     radial-gradient(ellipse at 50% 30%, rgba(212,168,75,0.015) 0%, transparent 55%);
   padding: var(--section-pad);
   position: relative;
+  overflow: hidden;
 }
 
 .paths-grid {
@@ -1426,6 +1447,103 @@ a.location-card {
    paths-section remain dark for brand consistency.
    ============================================ */
 
+/* --- About Page — Body-level gradient (matches team/partner) --- */
+body.about-page {
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 255, 255, 0.007) 3px, rgba(255, 255, 255, 0.007) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255, 255, 255, 0.005) 3px, rgba(255, 255, 255, 0.005) 4px),
+    linear-gradient(to bottom, #0B1F3A 0%, #0F1C35 15%, #0D1930 30%, #0B1628 50%, #0a1424 70%, #091320 85%, #081220 100%);
+}
+
+/* Wrapper — overlays span all about content seamlessly */
+.about-content-wrapper {
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.15) 100%),
+    radial-gradient(ellipse at 50% 20%, rgba(212, 168, 75, 0.03) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 80%, rgba(30, 80, 120, 0.06) 0%, transparent 45%);
+  position: relative;
+}
+
+/* Seamless hero blend */
+.about-content-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, #0B1F3A, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+body.about-page .page-hero {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.08) 30%, transparent 60%);
+}
+
+body.about-page .about-section {
+  background: transparent;
+}
+
+body.about-page .about-section .section-heading h2 {
+  color: var(--white);
+}
+
+body.about-page .about-intro {
+  color: var(--off-white);
+}
+
+body.about-page .about-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.about-page .about-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+body.about-page .about-card h3 {
+  color: var(--white);
+}
+
+body.about-page .about-card p {
+  color: var(--grey-text);
+}
+
+body.about-page .values-section {
+  background: transparent;
+}
+
+body.about-page .values-section h2 {
+  color: var(--white);
+}
+
+body.about-page .values-section > .container > .section-heading p {
+  color: var(--grey-text);
+}
+
+body.about-page .value-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.about-page .value-item h3 {
+  color: var(--white);
+}
+
+body.about-page .value-item p {
+  color: var(--grey-text);
+}
+
+body.about-page .testimonials-section {
+  background: transparent;
+}
+
+body.about-page .paths-section {
+  background: transparent;
+}
+
 /* --- Team Page — Body-level gradient (no section seams) --- */
 body.team-page {
   background:
@@ -1481,7 +1599,7 @@ body.team-page {
 .team-cta-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: 72px;
   max-width: 900px;
   margin: 0 auto;
 }
@@ -1683,7 +1801,7 @@ body.partner-page {
 /* --- Partner Details Grid: Text + Features --- */
 .partner-details {
   background: transparent;
-  padding: 100px 0 80px;
+  padding: 70px 0 50px;
   position: relative;
   z-index: 1;
 }
@@ -1786,6 +1904,86 @@ body.partner-page {
 /* Partner paths section — transparent bg */
 .partner-content-wrapper .paths-section {
   background: transparent;
+  padding-top: 40px;
+}
+
+/* ============================================
+   UNDER CONSTRUCTION
+   ============================================ */
+.construction-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 140px 0 80px;
+  position: relative;
+}
+
+.construction-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 1;
+  transform: none;
+}
+
+.construction-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.construction-label::before,
+.construction-label::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 1px;
+  background: rgba(212, 168, 75, 0.3);
+}
+
+.construction-label::before {
+  right: calc(100% + 14px);
+}
+
+.construction-label::after {
+  left: calc(100% + 14px);
+}
+
+.construction-content h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+.construction-tagline {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: var(--grey-text);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.construction-tagline em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.construction-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* ============================================
@@ -1820,7 +2018,7 @@ body.partner-page {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.9rem;
-  color: var(--white);
+  color: var(--gold);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 20px;
@@ -1931,11 +2129,17 @@ body.partner-page {
     padding: 10px 0 32px;
   }
 
-  /* Nav links already removed from HTML — dropdown handles all navigation */
+  .nav-logo img {
+    height: 38px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
 
   .dropdown-panel {
     width: 100%;
-    right: -100%;
   }
 
   /* Hero — fill viewport so ticker sits at bottom */
@@ -2143,10 +2347,20 @@ body.partner-page {
   .footer-inner {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 32px;
   }
 
   .footer-tagline {
     max-width: none;
+  }
+
+  .footer-col a {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .footer-col h4 {
+    margin-bottom: 16px;
   }
 
   .social-links {

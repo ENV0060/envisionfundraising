@@ -34,9 +34,9 @@ Envision - Website/
 ├── about.html              # About Us (complete)
 ├── team.html               # Meet the Team (complete)
 ├── partner.html            # Partner With Us (complete)
-├── charities.html          # Launch Your Campaign (not started)
-├── join.html               # Teams Near You / Careers (not started)
-├── contact.html            # Contact page (not started)
+├── charities.html          # Launch Your Campaign (placeholder)
+├── join.html               # Teams Near You / Careers (placeholder)
+├── contact.html            # Contact page (placeholder)
 ├── Photos/                 # Team & brand photos
 │   ├── John MacInnis.png
 │   ├── Aidan Hughes.jpeg
@@ -147,10 +147,12 @@ The homepage uses several layered techniques to create a sense of scroll progres
 ## Sub-Pages
 
 ### about.html (Complete)
-About Us page with:
+About Us page with dark navy theme matching team/partner pages:
+- `<body class="about-page">` for page-specific styling (same navy gradient as team/partner)
 - **Page Hero**: "About Envision" heading + mission statement
-- **Our Story** (`#our-story`): Intro paragraph + 3 cards (Mission-First, Built Different, Real Impact) using `.about-section`
-- **Values** (`.values-section`): Off-white background, "What We Stand For" heading, 2x2 grid of values (Integrity, Excellence, People First, Growth) using `.value-item` cards
+- **`.about-content-wrapper`**: Wraps all content sections (same pattern as `.team-paths-wrapper` / `.partner-content-wrapper`). Has radial gradient overlays (vignette, gold glow, teal glow) + `::before` navy veil for hero blend.
+- **Our Story** (`#our-story`): Intro paragraph + 3 cards (Mission-First, Built Different, Real Impact) using `.about-section` — dark card styling (`rgba(255,255,255,0.04)` background, white headings, grey text)
+- **Values** (`.values-section`): Dark theme with `section-heading--light` class, 2x2 grid of values (Integrity, Excellence, People First, Growth) using `.value-item` cards — dark backgrounds with white text
 - **Testimonials**: 3 quote cards (Jessica Reynolds, Kai Mitchell, Rachel Morgan — placeholder names/roles)
 - **CTA Path Cards**: "Ready to Work Together?" with 3 path cards
 - Shared footer + nav with visible nav-links
@@ -187,19 +189,38 @@ Partner With Us page for fundraising directors:
   - **Right column** (`.partner-features-panel`): Frosted glass card with gold top border, "What You Get" label, 8-item feature checklist (`.feature-list` with checkmark bullets)
   - Mobile: stacks to single column at 768px
 - **CTA Section**: "Not a Director?" with editorial two-column layout (reuses `.team-cta-row` / `.team-cta-block`):
-  - "For Charities" → Work With Us → `charities.html`
-  - "For Individuals" → Join Our Team → `join.html`
+  - "For Charities" → Launch a Campaign → `charities.html`
+  - "For Individuals" → Join a Team → `join.html`
 - Shared footer + nav with visible nav-links
 
-## Navigation Differences: Homepage vs Sub-Pages
+### charities.html (Placeholder)
+"Coming Soon" placeholder page for charity campaign launches:
+- `<body class="partner-page">` — reuses dark navy theme
+- Construction section with "Launch Your Campaign" heading, "Inspired Changes" tagline, Back to Home + Get In Touch CTAs
+- Shared nav + footer
+
+### join.html (Placeholder)
+"Coming Soon" placeholder page for team recruitment:
+- `<body class="partner-page">` — reuses dark navy theme
+- Construction section with "Join a Team Near You" heading, same tagline/CTAs
+- Shared nav + footer
+
+### contact.html (Placeholder)
+"Coming Soon" placeholder page for contact:
+- `<body class="partner-page">` — reuses dark navy theme
+- Construction section with "Get In Touch" heading, Back to Home + Email Us CTAs
+- Shared nav + footer
+
+## Navigation — Unified Across All Pages
 
 **Homepage (`index.html`)**:
 - Nav has only Inspire Change logo image + hamburger toggle (no visible nav-links)
-- Dropdown uses class `dropdown-audience-links` with updated labels: Partner With Us, Launch Your Campaign, Join a Team Near You
+- Dropdown uses class `dropdown-audience-links` with labels: Partner With Us, Launch Your Campaign, Join a Team Near You
 
-**Sub-pages (`about.html`, `team.html`, `partner.html`)**:
-- Nav has Inspire Change logo image + visible nav-links (Partner With Us, Work With Us, Join Our Team) + hamburger toggle
-- Dropdown uses class `dropdown-mobile-links` with original labels: Partner With Us, Work With Us, Join Our Team
+**Sub-pages (about, team, partner, charities, join, contact)**:
+- Nav has Inspire Change logo image + visible nav-links (Partner With Us, Launch a Campaign, Join a Team) + hamburger toggle
+- Nav-links use `margin-left: auto` to push right; `.nav-links ~ .menu-toggle { margin-left: 0 }` scoped to `@media (min-width: 769px)` so hamburger stays far-right on mobile when nav-links are hidden
+- Dropdown panel with full navigation links
 
 ## Mobile Hero Layout (<=768px)
 
@@ -225,8 +246,8 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 
 ## Key JavaScript Features (script.js)
 
-- **Dynamic nav color**: On scroll > 60px, adds `.scrolled` class and samples the body gradient at the current scroll ratio to set a seamless background color. Uses page-specific gradient stops: navy-based for `body.team-page` or `body.partner-page`, charcoal-based (darkened to match vignette overlay) for homepage/default. Background is a `linear-gradient(to bottom)` that fades to transparent at the bottom edge.
-- **"Inspire Change." watermark boost**: After 6.1s (via `setTimeout`, NOT `animationend` — pseudo-element animations bubble and cause double-fire), JS creates a `.inspire-boost` element — a cloned logo image with `clip-path` isolating just "Inspire Change." text — appended to the hero container (not inside `.hero-logo`) so it isn't capped by parent's 0.06 opacity. Fades in to 0.30 opacity. Includes `querySelector('.inspire-boost')` guard to prevent duplicates.
+- **Dynamic nav color**: On scroll > 60px, adds `.scrolled` class and samples the body gradient at the current scroll ratio to set a seamless background color. Uses page-specific gradient stops: navy-based for `body.team-page`, `body.partner-page`, or `body.about-page`; charcoal-based (darkened to match vignette overlay) for homepage/default. Background is a `linear-gradient(to bottom)` that fades to transparent at the bottom edge.
+- **"Inspire Change." watermark boost**: After 6.1s (via `setTimeout`, NOT `animationend` — pseudo-element animations bubble and cause double-fire), JS creates a `.inspire-boost` element — a cloned logo image with `clip-path` isolating just "Inspire Change." text — appended to the hero container (not inside `.hero-logo`) so it isn't capped by parent's 0.06 opacity. Uses `getComputedStyle(heroLogo)` to copy the exact computed position (top, left, transform, width) from the hero-logo after its animation fill-mode completes — ensures perfect alignment on both desktop and mobile. Fades in to 0.30 opacity. Includes `querySelector('.inspire-boost')` guard to prevent duplicates.
 - **Dropdown panel**: Creates overlay dynamically, open/close with toggle button, closes on overlay click or link click
 - **Scroll reveal**: IntersectionObserver with `.reveal` and `.reveal-children` classes, staggered delays via nth-child (up to 12 children). Threshold: 0.05, rootMargin: -20px (lowered from 0.15/-40px for better mobile triggering)
 - **Stats counter**: requestAnimationFrame with ease-out cubic curve, triggered by IntersectionObserver
@@ -255,7 +276,8 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - Location cards as `<a>` elements linking to `join.html`
 - **Wrapper div pattern** (`.team-paths-wrapper`, `.partner-content-wrapper`): When radial gradient overlays must span multiple sections seamlessly, wrap them in a single parent div with overlays on the parent and all sections set to `background: transparent`. Prevents visible seams at section boundaries (CSS backgrounds are confined to their element's bounding box).
 - **Editorial CTA pattern** (`.team-cta-row` / `.team-cta-block`): Two-column grid of link blocks with gold top border that animates to full width on hover via `::before` pseudo-element. Reused on both team.html and partner.html.
-- **`.inspire-boost`**: Separate DOM element for selectively boosting opacity of part of a watermark logo. Uses `clip-path: polygon()` to isolate specific text. Must be outside the parent element whose opacity is capped by animation.
+- **`.inspire-boost`**: Separate DOM element for selectively boosting opacity of part of a watermark logo. Uses `clip-path: polygon()` to isolate specific text. Must be outside the parent element whose opacity is capped by animation. Position set by JS via `getComputedStyle()` (no static CSS positioning).
+- **Wrapper div pattern** also used on about.html (`.about-content-wrapper`) — all three sub-page content areas share the same radial gradient overlay approach.
 - Three responsive breakpoints: 1024px (tablet), 768px (mobile), 480px (small mobile)
 
 ## Charity Partners & Links
@@ -275,10 +297,10 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 
 ## Pending / In Progress
 
-### Sub-Pages Not Started
-- `charities.html` — Launch Your Campaign / Work With Us (for charity organizations)
-- `join.html` — Teams Near You / Join Our Team (recruitment/careers)
-- `contact.html` — Contact page
+### Sub-Pages Need Content
+- `charities.html` — Currently "Coming Soon" placeholder. Needs full Launch Your Campaign content.
+- `join.html` — Currently "Coming Soon" placeholder. Needs full Join a Team / careers content.
+- `contact.html` — Currently "Coming Soon" placeholder. Needs full contact form / details.
 
 ### Placeholder Content to Replace
 - Team member descriptions & quotes still placeholder for: Michael Beatty, Krystal Shannon (`team.html`)
@@ -288,10 +310,6 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - Contact info: phone number is `+1 (000) 000-0000`, office address is `[Office Address Placeholder]`
 - FAQ section (dropdown links to `#faq` but no FAQ section exists on any page)
 - Footer credit: `Website by [Your Name/Agency]`
-
-### Navigation Consistency
-- Homepage uses updated link labels (Launch Your Campaign, Join a Team Near You) while sub-pages still use original labels (Work With Us, Join Our Team). May need to unify.
-- Homepage dropdown uses `dropdown-audience-links` class; sub-pages use `dropdown-mobile-links` class
 
 ### Logo Situation
 - All logos now PNG except Trillium (still .jpg)

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Pick gradient stops based on page
-    const isNavyPage = document.body.classList.contains('team-page') || document.body.classList.contains('partner-page');
+    const isNavyPage = document.body.classList.contains('team-page') || document.body.classList.contains('partner-page') || document.body.classList.contains('about-page');
     const gradientStops = isNavyPage
       ? [ /* Navy-based — team page body gradient */
           [[11, 31, 58], 0],    [[15, 28, 53], 0.15],
@@ -60,27 +60,30 @@ document.addEventListener('DOMContentLoaded', () => {
   if (heroLogo) {
     // After the 6s intro animation completes, add a separate element that shows
     // just "Inspire Change." at higher opacity (not capped by parent's 0.06).
-    // Uses setTimeout instead of animationend to avoid duplicate firing issues.
+    // Position is copied from hero-logo's actual computed state to guarantee alignment.
     setTimeout(() => {
       if (document.querySelector('.inspire-boost')) return;
+
+      // Read hero-logo's actual position after animation fill
+      const cs = getComputedStyle(heroLogo);
+
       const boost = document.createElement('div');
       boost.classList.add('inspire-boost');
-      // Match position and size of the watermark logo at its final state
+      // Copy exact position from hero-logo
+      boost.style.position = 'absolute';
+      boost.style.top = cs.top;
+      boost.style.left = cs.left;
+      boost.style.transform = cs.transform;
+      boost.style.width = cs.width;
+
       const logoImg = heroLogo.querySelector('img');
-      const style = getComputedStyle(heroLogo);
-      boost.style.top = style.top;
-      boost.style.left = style.left;
-      boost.style.transform = style.transform;
-      boost.style.width = logoImg.offsetWidth + 'px';
-      boost.style.height = logoImg.offsetHeight + 'px';
-      // Clone the image
       const img = logoImg.cloneNode();
       img.style.width = '100%';
-      img.style.height = '100%';
+      img.style.height = 'auto';
       boost.appendChild(img);
       heroLogo.parentElement.appendChild(boost);
       // Trigger fade in
-      requestAnimationFrame(() => boost.classList.add('visible'));
+      setTimeout(() => boost.classList.add('visible'), 50);
     }, 6100);
   }
 

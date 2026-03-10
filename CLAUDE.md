@@ -35,7 +35,7 @@ Envision - Website/
 ├── team.html               # Meet the Team (complete)
 ├── partner.html            # Partner With Us (complete)
 ├── charities.html          # Launch Your Campaign (placeholder)
-├── join.html               # Teams Near You / Careers (placeholder)
+├── join.html               # Join a Team Near You (complete — interactive city explorer)
 ├── contact.html            # Contact page (placeholder)
 ├── Photos/                 # Team & brand photos
 │   ├── John MacInnis.png
@@ -46,6 +46,8 @@ Envision - Website/
 │   ├── Krystal Shannon.jpg
 │   ├── Envision Logo.jpg
 │   └── Envision Logo - Inspire Change.png
+├── Photos/Company Team Photos/  # Generic team photos for join page collage
+│   └── Join a Team Landing Photos/  # 5 static photos for join landing hero
 ├── index-new-logo.html     # Save state: [ENVISION] CSS text logo version
 ├── style-new-logo.css      # Save state: [ENVISION] CSS text logo version
 ├── Location Photos/        # City skyline/landmark photos
@@ -199,11 +201,19 @@ Partner With Us page for fundraising directors:
 - Construction section with "Launch Your Campaign" heading, "Inspired Changes" tagline, Back to Home + Get In Touch CTAs
 - Shared nav + footer
 
-### join.html (Placeholder)
-"Coming Soon" placeholder page for team recruitment:
-- `<body class="partner-page">` — reuses dark navy theme
-- Construction section with "Join a Team Near You" heading, same tagline/CTAs
-- Shared nav + footer
+### join.html (Complete)
+Interactive city explorer page for team recruitment:
+- `<body class="join-page">` — custom dark navy gradient (transitions to dark faster than other pages)
+- **Page Hero**: Dual-state hero — landing shows "Join a Team Near You" (Inter 600 weight, off-white) + 5 static team photos from `Photos/Company Team Photos/Join a Team Landing Photos/`. When city selected, hero transforms to city skyline photo with Ken Burns zoom, city name + tagline overlay.
+- **`.join-content-wrapper`**: Same radial gradient overlay pattern as partner/team/about pages. `::before` navy veil for seamless hero blend.
+- **City Selection Grid** (`.join-explorer`): 8 city cards in 4-column grid (`max-width: 1200px`). Each card: skyline photo, gradient scrim, city name + metadata (region, est. year). Bouncy hover (scale + translateY + gold border glow). Cities: Ottawa (2016), Toronto/GTA (2017), Vancouver (2018), Calgary (2020), Edmonton (2021), Halifax (2025), Columbus (2025), Windsor (2025).
+- **City Detail View** (`.join-detail`): Two-column layout — left sidebar (220px sticky) with 7 other city thumbnail cards + "Join a Team Near You" label; right main panel with team info card, 6-photo collage (3x2 grid), Apply Now + View All Cities CTAs.
+- **Photo Collage**: 6 generic team photos from `Photos/Company Team Photos/` in 3-column CSS grid (200px rows). Photos cycle every 2.8s with opacity fade animation. 30-second cooldown prevents duplicate photos. Fisher-Yates shuffle for randomized pool.
+- **Transitions**: Grid → detail (fade out/up → fade in/up with staggered sidebar + collage entrance). City swap via sidebar (crossfade main panel). Detail → grid via "View All Cities" button.
+- **Browser History**: `pushState`/`popstate` for proper back/forward navigation between grid and city states. URL hash deep linking (`#city-ottawa` etc.).
+- **CTA Section**: "Looking for Other Opportunities?" with editorial two-column layout (reuses `.team-cta-row`): For Directors → Partner With Us, For Charities → Launch a Campaign.
+- **Nav Contrast**: When city photo hero is active, `body.join-city-active` adds heavier text-shadow on nav links and drop-shadow on logo/hamburger for readability over photos.
+- Shared footer + nav with visible nav-links
 
 ### contact.html (Placeholder)
 "Coming Soon" placeholder page for contact:
@@ -299,7 +309,6 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 
 ### Sub-Pages Need Content
 - `charities.html` — Currently "Coming Soon" placeholder. Needs full Launch Your Campaign content.
-- `join.html` — Currently "Coming Soon" placeholder. Needs full Join a Team / careers content.
 - `contact.html` — Currently "Coming Soon" placeholder. Needs full contact form / details.
 
 ### Placeholder Content to Replace

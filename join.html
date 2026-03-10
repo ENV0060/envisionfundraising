@@ -7,7 +7,7 @@
   <meta name="description" content="Join Envision Fundraising. Find a team near you and start a career in face-to-face fundraising for leading charities across Canada and the United States.">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="partner-page">
+<body class="join-page">
 
   <!-- ========== NAVIGATION ========== -->
   <nav class="site-nav">
@@ -43,23 +43,160 @@
         <a href="#" class="social-link" aria-label="Facebook">Fb</a>
         <a href="#" class="social-link" aria-label="Twitter / X">X</a>
       </div>
+      <div class="dropdown-logo" aria-hidden="true"><img src="Photos/Envision Logo - Inspire Change.png" alt=""></div>
     </div>
   </div>
 
-  <!-- ========== UNDER CONSTRUCTION ========== -->
-  <section class="construction-section">
-    <div class="container">
-      <div class="construction-content">
-        <span class="construction-label">Coming Soon</span>
+  <!-- ========== PAGE HERO ========== -->
+  <section class="page-hero" id="page-hero">
+    <!-- City photo backdrop (hidden until city selected) -->
+    <div class="page-hero-city-bg" id="page-hero-city-bg">
+      <img id="hero-city-img" src="" alt="">
+      <div class="page-hero-city-overlay"></div>
+    </div>
+    <div class="container page-hero-content">
+      <div class="page-hero-default" id="page-hero-default">
         <h1>Join a Team <span class="highlight">Near You</span></h1>
-        <p class="construction-tagline">This page is going through <em>Inspired Changes.</em></p>
-        <div class="construction-cta">
-          <a href="index.html" class="btn btn-gold">Back to Home</a>
-          <a href="contact.html" class="btn btn-outline">Get In Touch</a>
+        <p>Pick a city. See the team. Start your story.</p>
+        <div class="join-landing-photos">
+          <img src="Photos/Company Team Photos/Join a Team Landing Photos/IMG_7359.jpeg" alt="Team" loading="lazy">
+          <img src="Photos/Company Team Photos/Join a Team Landing Photos/2026-03-10 13.42.09.jpg" alt="Team" loading="lazy">
+          <img src="Photos/Company Team Photos/Join a Team Landing Photos/ghdZDFEyncgLVw8vGIaHJdX1acgN0aQUaciSWy5oZnQeJxFPc.jpg" alt="Team" loading="lazy">
+          <img src="Photos/Company Team Photos/Join a Team Landing Photos/2026-03-10 13.43.42.jpg" alt="Team" loading="lazy">
+          <img src="Photos/Company Team Photos/Join a Team Landing Photos/PmMdlSO_09fwIHY8Y_S17X6pe7pzdqHiIIcfNku8ZrseJxFPc.jpg" alt="Team" loading="lazy">
         </div>
+      </div>
+      <div class="page-hero-city" id="page-hero-city">
+        <span class="page-hero-city-tagline" id="hero-city-tagline"></span>
+        <h1 id="hero-city-name"></h1>
       </div>
     </div>
   </section>
+
+  <!-- ========== CITY EXPLORER ========== -->
+  <div class="join-content-wrapper">
+
+    <!-- GRID STATE: City Selection -->
+    <section class="join-explorer" id="join-explorer">
+      <div class="container">
+        <div class="join-grid reveal-children" id="join-grid">
+          <div class="join-city-card" data-city="ottawa">
+            <img src="Location Photos/Ottawa, ON.jpg" alt="Ottawa" loading="lazy">
+            <div class="join-city-info">
+              <span class="join-city-name">Ottawa</span>
+              <span class="join-city-meta">Ontario, Canada &middot; Est. 2016</span>
+            </div>
+          </div>
+          <div class="join-city-card" data-city="toronto">
+            <img src="Location Photos/Toronto, ON.jpg" alt="Toronto" loading="lazy">
+            <div class="join-city-info">
+              <span class="join-city-name">Toronto / GTA</span>
+              <span class="join-city-meta">Ontario, Canada &middot; Est. 2017</span>
+            </div>
+          </div>
+          <div class="join-city-card" data-city="vancouver">
+            <img src="Location Photos/Vancouver, BC.jpg" alt="Vancouver" loading="lazy">
+            <div class="join-city-info">
+              <span class="join-city-name">Vancouver</span>
+              <span class="join-city-meta">British Columbia, Canada &middot; Est. 2018</span>
+            </div>
+          </div>
+          <div class="join-city-card" data-city="calgary">
+            <img src="Location Photos/Calgary, AB.jpg" alt="Calgary" loading="lazy">
+            <div class="join-city-info">
+              <span class="join-city-name">Calgary</span>
+              <span class="join-city-meta">Alberta, Canada &middot; Est. 2020</span>
+            </div>
+          </div>
+          <div class="join-city-card" data-city="edmonton">
+            <img src="Location Photos/Edmonton, AB.webp" alt="Edmonton" loading="lazy">
+            <div class="join-city-info">
+              <span class="join-city-name">Edmonton</span>
+              <span class="join-city-meta">Alberta, Canada &middot; Est. 2021</span>
+            </div>
+          </div>
+          <div class="join-city-card" data-city="halifax">
+            <img src="Location Photos/Halifax, NS.jpg" alt="Halifax" loading="lazy">
+            <div class="join-city-info">
+              <span class="join-city-name">Halifax</span>
+              <span class="join-city-meta">Nova Scotia, Canada &middot; Est. 2025</span>
+            </div>
+          </div>
+          <div class="join-city-card" data-city="columbus">
+            <img src="Location Photos/Columbus, OH.jpg" alt="Columbus" loading="lazy">
+            <div class="join-city-info">
+              <span class="join-city-name">Columbus</span>
+              <span class="join-city-meta">Ohio, USA &middot; Est. 2025</span>
+            </div>
+          </div>
+          <div class="join-city-card" data-city="windsor">
+            <img src="Location Photos/Windsor, ON.jpg" alt="Windsor" loading="lazy">
+            <div class="join-city-info">
+              <span class="join-city-name">Windsor</span>
+              <span class="join-city-meta">Ontario, Canada &middot; Est. 2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAIL STATE: Sidebar + Main Panel -->
+    <section class="join-detail-view" id="join-detail">
+      <div class="container">
+        <div class="join-detail-layout">
+          <!-- Left column: label + sidebar -->
+          <div class="join-sidebar-col">
+            <h2 class="join-sidebar-label">Join a Team <span class="highlight">Near You</span></h2>
+            <aside class="join-sidebar" id="join-sidebar"></aside>
+          </div>
+
+          <!-- Right main: team info + collage -->
+          <div class="join-detail-main" id="join-detail-main">
+            <!-- Team description -->
+            <div class="join-team-info" id="detail-team-info">
+              <h3 id="detail-team-heading"></h3>
+              <p id="detail-team-desc"></p>
+              <div class="join-team-stats" id="detail-team-stats"></div>
+            </div>
+
+            <!-- Team photo collage (cycling) -->
+            <div class="join-team-collage" id="detail-team-collage"></div>
+
+            <!-- CTA buttons -->
+            <div class="join-detail-cta">
+              <a href="contact.html" class="btn btn-gold">Apply Now</a>
+              <button class="btn btn-outline join-back-btn" id="join-back-btn">View All Cities</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="paths-section">
+      <div class="container">
+        <div class="section-heading section-heading--light reveal">
+          <h2>Looking for Other <span class="highlight">Opportunities</span>?</h2>
+          <p>We've got other ways to work together.</p>
+        </div>
+        <div class="team-cta-row reveal-children">
+          <a href="partner.html" class="team-cta-block">
+            <span class="team-cta-label">For Directors</span>
+            <h3>Partner With Us</h3>
+            <p>You run a fundraising operation and want better pay, more support, and less hassle.</p>
+            <span class="team-cta-arrow">&rarr;</span>
+          </a>
+          <a href="charities.html" class="team-cta-block">
+            <span class="team-cta-label">For Charities</span>
+            <h3>Launch a Campaign</h3>
+            <p>You're a charity looking for a fundraising partner that treats your cause like their own.</p>
+            <span class="team-cta-arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.join-content-wrapper -->
 
   <!-- ========== FOOTER ========== -->
   <footer class="site-footer">
@@ -73,8 +210,8 @@
           <h4>Pages</h4>
           <a href="index.html">Home</a>
           <a href="partner.html">Partner With Us</a>
-          <a href="charities.html">Work With Us</a>
-          <a href="join.html">Join Our Team</a>
+          <a href="charities.html">Launch a Campaign</a>
+          <a href="join.html">Join a Team</a>
           <a href="contact.html">Contact</a>
         </div>
         <div class="footer-col">
@@ -100,6 +237,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>

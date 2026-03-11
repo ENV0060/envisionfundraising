@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — Envision Fundraising Inc.</title>
-  <meta name="description" content="Get in touch with Envision Fundraising. We'd love to hear from you about partnerships, campaigns, careers, or anything else.">
+  <title>Apply Now — Envision Fundraising Inc.</title>
+  <meta name="description" content="Apply to join the Envision Fundraising team. Fill out our application form and attach your resume to get started on your new career in fundraising.">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="partner-page">
+<body class="partner-page apply-page">
 
   <!-- ========== NAVIGATION ========== -->
   <nav class="site-nav">
@@ -43,23 +43,183 @@
         <a href="#" class="social-link" aria-label="Facebook">Fb</a>
         <a href="#" class="social-link" aria-label="Twitter / X">X</a>
       </div>
+      <div class="dropdown-logo" aria-hidden="true"><img src="Photos/Envision Logo - Inspire Change.png" alt=""></div>
     </div>
   </div>
 
-  <!-- ========== UNDER CONSTRUCTION ========== -->
-  <section class="construction-section">
+  <!-- ========== PAGE HERO ========== -->
+  <section class="page-hero">
     <div class="container">
-      <div class="construction-content">
-        <span class="construction-label">Coming Soon</span>
-        <h1>Get In <span class="highlight">Touch</span></h1>
-        <p class="construction-tagline">This page is going through <em>Inspired Changes.</em></p>
-        <div class="construction-cta">
-          <a href="index.html" class="btn btn-gold">Back to Home</a>
-          <a href="mailto:info@envisionfundraising.com" class="btn btn-outline">Email Us</a>
-        </div>
-      </div>
+      <h1 class="reveal">Become an <span class="highlight">Envisionite</span> Today</h1>
+      <p class="reveal">Your next chapter starts here.</p>
     </div>
   </section>
+
+  <!-- ========== APPLY CONTENT ========== -->
+  <div class="apply-content-wrapper">
+
+    <section class="apply-section">
+      <div class="container">
+        <div class="apply-form-card reveal">
+          <p class="apply-intro">Apply for your new role today. Simply fill in the required fields and write a brief note detailing your reason for reaching out. We will be in touch once we've had time to review your request and associated documents.</p>
+          <p class="apply-required-note">Fields marked with <span class="required-star">*</span> are required.</p>
+
+          <form name="apply" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" class="apply-form" id="apply-form" novalidate>
+            <input type="hidden" name="form-name" value="apply">
+            <p class="hidden-field" style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+            <!-- Name Row -->
+            <div class="form-row form-row--half">
+              <div class="form-group">
+                <label for="first-name">First Name <span class="required-star">*</span></label>
+                <input type="text" id="first-name" name="first_name" required placeholder="First name">
+              </div>
+              <div class="form-group">
+                <label for="last-name">Last Name <span class="required-star">*</span></label>
+                <input type="text" id="last-name" name="last_name" required placeholder="Last name">
+              </div>
+            </div>
+
+            <!-- City Row -->
+            <div class="form-row form-row--half">
+              <div class="form-group">
+                <label for="city-residence">City of Residence</label>
+                <input type="text" id="city-residence" name="city_residence" placeholder="Where do you live?">
+              </div>
+              <div class="form-group">
+                <label for="city-applying">City Applying To <span class="required-star">*</span></label>
+                <select id="city-applying" name="city_applying" required>
+                  <option value="" disabled selected>Select a city</option>
+                  <option value="Ottawa">Ottawa</option>
+                  <option value="Toronto / GTA">Toronto / GTA</option>
+                  <option value="Vancouver">Vancouver</option>
+                  <option value="Calgary">Calgary</option>
+                  <option value="Edmonton">Edmonton</option>
+                  <option value="Halifax">Halifax</option>
+                  <option value="Columbus">Columbus</option>
+                  <option value="Windsor">Windsor</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Contact Row -->
+            <div class="form-row form-row--half">
+              <div class="form-group">
+                <label for="email">Email <span class="required-star">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="you@example.com">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+1 (000) 000-0000">
+              </div>
+            </div>
+
+            <!-- Reason for Contact -->
+            <div class="form-row">
+              <div class="form-group">
+                <label>Which Best Describes Your Reason for Contacting Us?</label>
+                <div class="select-circles">
+                  <label class="select-circle-label">
+                    <input type="radio" name="contact_reason" value="Join a Team" checked>
+                    <span class="select-circle"></span>
+                    Join a Team
+                  </label>
+                  <label class="select-circle-label">
+                    <input type="radio" name="contact_reason" value="Charity looking to launch a campaign">
+                    <span class="select-circle"></span>
+                    Charity looking to launch a campaign
+                  </label>
+                  <label class="select-circle-label">
+                    <input type="radio" name="contact_reason" value="Established Office(s) considering partnership">
+                    <span class="select-circle"></span>
+                    Established Office(s) considering partnership
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preferred Contact Method -->
+            <div class="form-row">
+              <div class="form-group">
+                <label>Preferred Method of Contact</label>
+                <div class="select-circles select-circles--inline">
+                  <label class="select-circle-label">
+                    <input type="radio" name="contact_method" value="Email" checked>
+                    <span class="select-circle"></span>
+                    Email
+                  </label>
+                  <label class="select-circle-label">
+                    <input type="radio" name="contact_method" value="Phone">
+                    <span class="select-circle"></span>
+                    Phone
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- File Uploads -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="resume">Resume &amp; Relevant Documents</label>
+                <div class="file-upload-area" id="file-upload-area">
+                  <input type="file" id="resume" name="attachments" multiple accept=".pdf,.doc,.docx,.txt,.rtf,.jpg,.jpeg,.png">
+                  <div class="file-upload-content">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="17 8 12 3 7 8"/>
+                      <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                    <span class="file-upload-text">Drag files here or click to browse</span>
+                    <span class="file-upload-hint">PDF, DOC, DOCX, TXT, JPG, PNG</span>
+                  </div>
+                </div>
+                <div class="file-list" id="file-list"></div>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="notes">Notes &amp; Questions</label>
+                <textarea id="notes" name="notes" rows="5" placeholder="Tell us a bit about yourself, why you're interested, or ask us anything."></textarea>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-row form-submit-row">
+              <button type="submit" class="btn btn-gold btn-submit">Submit Application</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="paths-section">
+      <div class="container">
+        <div class="section-heading section-heading--light reveal">
+          <h2>Looking for Something <span class="highlight">Else</span>?</h2>
+          <p>We've got other ways to work together.</p>
+        </div>
+        <div class="team-cta-row reveal-children">
+          <a href="partner.html" class="team-cta-block">
+            <span class="team-cta-label">For Directors</span>
+            <h3>Partner With Us</h3>
+            <p>You run a fundraising operation and want better pay, more support, and less hassle.</p>
+            <span class="team-cta-arrow">&rarr;</span>
+          </a>
+          <a href="join.html" class="team-cta-block">
+            <span class="team-cta-label">For Individuals</span>
+            <h3>Join a Team Near You</h3>
+            <p>Browse our locations and find the city that fits your next move.</p>
+            <span class="team-cta-arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.apply-content-wrapper -->
 
   <!-- ========== FOOTER ========== -->
   <footer class="site-footer">
@@ -73,9 +233,9 @@
           <h4>Pages</h4>
           <a href="index.html">Home</a>
           <a href="partner.html">Partner With Us</a>
-          <a href="charities.html">Work With Us</a>
-          <a href="join.html">Join Our Team</a>
-          <a href="contact.html">Contact</a>
+          <a href="charities.html">Launch a Campaign</a>
+          <a href="join.html">Join a Team</a>
+          <a href="contact.html">Apply</a>
         </div>
         <div class="footer-col">
           <h4>Contact</h4>
@@ -100,6 +260,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=13"></script>
 </body>
 </html>

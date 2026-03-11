@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Pick gradient stops based on page
-    const isNavyPage = document.body.classList.contains('team-page') || document.body.classList.contains('partner-page') || document.body.classList.contains('about-page');
+    const isNavyPage = document.body.classList.contains('team-page') || document.body.classList.contains('partner-page') || document.body.classList.contains('about-page') || document.body.classList.contains('join-page');
     const gradientStops = isNavyPage
       ? [ /* Navy-based — team page body gradient */
           [[11, 31, 58], 0],    [[15, 28, 53], 0.15],
@@ -100,12 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const openPanel = () => {
       dropdownPanel.classList.add('open');
       overlay.classList.add('open');
+      document.body.classList.add('dropdown-open');
       document.body.style.overflow = 'hidden';
     };
 
     const closePanel = () => {
       dropdownPanel.classList.remove('open');
       overlay.classList.remove('open');
+      document.body.classList.remove('dropdown-open');
       document.body.style.overflow = '';
     };
 
@@ -316,6 +318,512 @@ document.addEventListener('DOMContentLoaded', () => {
     // Clone the items to create a seamless loop
     const items = tickerTrack.innerHTML;
     tickerTrack.innerHTML = items + items;
+  }
+
+
+  /* ---------- JOIN PAGE — CITY EXPLORER ---------- */
+  const joinGrid = document.getElementById('join-grid');
+  const joinExplorer = document.getElementById('join-explorer');
+  const joinDetail = document.getElementById('join-detail');
+
+  if (joinGrid && joinExplorer && joinDetail) {
+
+    const teamPhotos = [
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.28.08.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.28.59.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.29.33.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.29.46.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.30.14.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.31.32.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.33.31.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.34.13.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.34.24.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.41.58.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.42.03.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.42.09.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.43.42.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/PmMdlSO_09fwIHY8Y_S17X6pe7pzdqHiIIcfNku8ZrseJxFPc.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/ghdZDFEyncgLVw8vGIaHJdX1acgN0aQUaciSWy5oZnQeJxFPc.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 16.27.10.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 16.27.17.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/F749ED74-04F4-4DDF-9646-25ACA31F009F.jpg.jpeg',
+      'Photos/Company Team Photos/Calgary Team Photos/IMG_7359.jpeg',
+      'Photos/Company Team Photos/FLARE Teams/2607200253510320142.jpeg',
+      'Photos/Company Team Photos/FLARE Teams/4528505928960839980.jpeg',
+      'Photos/Company Team Photos/FLARE Teams/8697860766244300564.jpeg',
+      // Removed duplicate: ghdZDFEyncgLVw8vGIaHJdX1acgN0aQUaciSWy5oZnQeJxFPc.jpg (same as Calgary copy)
+      'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.30.32.jpg',
+      'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.31.11.jpg',
+      'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.31.46.jpg',
+      'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.33.59.jpg'
+    ];
+    const COLLAGE_SIZE = 6;
+    let collageInterval = null;
+
+    const cityData = {
+      ottawa: {
+        name: 'Ottawa',
+        photo: 'Location Photos/Ottawa, ON.jpg',
+        tagline: 'Where it all started.',
+        heading: 'The Ottawa Crew',
+        description: 'The founding city. Ottawa is where Envision began back in 2016 — a small team with a big idea about how fundraising should actually work. Today, the Ottawa office is still the heartbeat of the operation. If you want to learn from the people who built this thing from scratch, this is your squad.',
+        established: '2016'
+      },
+      toronto: {
+        name: 'Toronto / GTA',
+        photo: 'Location Photos/Toronto, ON.jpg',
+        tagline: 'The biggest stage in the country.',
+        heading: 'The Toronto Squad',
+        description: 'The biggest market, the biggest energy. Toronto is where campaigns scale and careers accelerate. The GTA team covers a massive territory and they do it with style. Fast-paced, high-energy, and never boring — if you thrive in the action, Toronto is calling.',
+        established: '2017'
+      },
+      vancouver: {
+        name: 'Vancouver',
+        photo: 'Location Photos/Vancouver, BC.jpg',
+        tagline: 'West coast, best coast.',
+        heading: 'The Vancouver Team',
+        description: 'Mountains, ocean, and a team that matches the energy. Vancouver was one of the first expansion cities and it shows — the crew out here runs tight campaigns with a laid-back West Coast edge. Great vibes, great results, and you might catch a sunset on your lunch break.',
+        established: '2018'
+      },
+      calgary: {
+        name: 'Calgary',
+        photo: 'Location Photos/Calgary, AB.jpg',
+        tagline: 'Alberta grit meets fundraising hustle.',
+        heading: 'The Calgary Crew',
+        description: 'Calgary doesn\'t mess around. The Alberta crew brings a work ethic that\'s hard to match and a culture that\'s even harder to leave. This team has grown fast because they keep it real — honest conversations, genuine connections, and results that speak for themselves.',
+        established: '2020'
+      },
+      edmonton: {
+        name: 'Edmonton',
+        photo: 'Location Photos/Edmonton, AB.webp',
+        tagline: 'Cold winters, warm hearts.',
+        heading: 'The Edmonton Team',
+        description: 'Don\'t let the winters fool you — the Edmonton team brings the heat. A tight-knit group that punches way above its weight, this office has become a proving ground for some of Envision\'s most talented fundraisers. Small-city roots with big-city ambitions.',
+        established: '2021'
+      },
+      halifax: {
+        name: 'Halifax',
+        photo: 'Location Photos/Halifax, NS.jpg',
+        tagline: 'East coast charm, brand new energy.',
+        heading: 'The Halifax Crew',
+        description: 'The newest Canadian office, and already making waves. Halifax brings East Coast warmth to everything it does — the kind of place where donors actually want to stop and chat. If you\'re looking to get in on the ground floor of something special, this is it.',
+        established: '2025'
+      },
+      columbus: {
+        name: 'Columbus',
+        photo: 'Location Photos/Columbus, OH.jpg',
+        tagline: 'Our first American city.',
+        heading: 'The Columbus Team',
+        description: 'Envision goes stateside. Columbus is the launchpad for Envision\'s U.S. expansion — a city with serious energy and a fundraising team that\'s building something brand new. Get in now and help write the first chapter of Envision in America.',
+        established: '2025'
+      },
+      windsor: {
+        name: 'Windsor',
+        photo: 'Location Photos/Windsor, ON.jpg',
+        tagline: 'Small city energy, big results.',
+        heading: 'The Windsor Team',
+        description: 'Right on the border and full of surprises. Windsor is proof that you don\'t need a massive market to build a massive impact. This team is scrappy, hungry, and consistently outperforms expectations. Perfect for someone who wants to make a name for themselves.',
+        established: '2025'
+      }
+    };
+
+    const cityOrder = ['ottawa', 'toronto', 'vancouver', 'calgary', 'edmonton', 'halifax', 'columbus', 'windsor'];
+    let selectedCity = null;
+
+    const sidebar = document.getElementById('join-sidebar');
+    const detailMain = document.getElementById('join-detail-main');
+    const backBtn = document.getElementById('join-back-btn');
+    const pageHero = document.getElementById('page-hero');
+    const heroCityImg = document.getElementById('hero-city-img');
+    const heroCityName = document.getElementById('hero-city-name');
+    const heroCityTagline = document.getElementById('hero-city-tagline');
+
+    // Render sidebar with all cities except the selected one
+    function renderSidebar(excludeKey) {
+      sidebar.innerHTML = '';
+      cityOrder.filter(k => k !== excludeKey).forEach((key, i) => {
+        const city = cityData[key];
+        const card = document.createElement('div');
+        card.className = 'join-sidebar-card';
+        card.dataset.city = key;
+        card.innerHTML = `
+          <img src="${city.photo}" alt="${city.name}" loading="lazy">
+          <span class="join-sidebar-name">${city.name}</span>
+        `;
+        sidebar.appendChild(card);
+        // Stagger animation
+        setTimeout(() => card.classList.add('visible'), 80 + i * 60);
+      });
+    }
+
+    // Shuffle helper
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Track which photos are currently displayed vs available
+    let displayedPhotos = [];
+    let photoPool = [];
+    let cooldownPhotos = []; // Photos on cooldown (recently removed from display)
+
+    function stopCollageCycle() {
+      if (collageInterval) {
+        clearInterval(collageInterval);
+        collageInterval = null;
+      }
+    }
+
+    function startCollageCycle() {
+      stopCollageCycle();
+      collageInterval = setInterval(() => {
+        const collage = document.getElementById('detail-team-collage');
+        const items = collage.querySelectorAll('.join-collage-item');
+        if (items.length === 0 || photoPool.length === 0) return;
+
+        // Pick a random slot to swap
+        const slotIdx = Math.floor(Math.random() * items.length);
+        // Pick a new photo from the pool
+        const newPhoto = photoPool.shift();
+        // Put the old photo on 30s cooldown instead of back in pool
+        const oldPhoto = displayedPhotos[slotIdx];
+        displayedPhotos[slotIdx] = newPhoto;
+        cooldownPhotos.push(oldPhoto);
+        setTimeout(() => {
+          // After 30s, move from cooldown back to pool
+          const idx = cooldownPhotos.indexOf(oldPhoto);
+          if (idx !== -1) {
+            cooldownPhotos.splice(idx, 1);
+            photoPool.push(oldPhoto);
+          }
+        }, 30000);
+
+        const item = items[slotIdx];
+        // Preload new image, then crossfade
+        const preload = new Image();
+        preload.src = newPhoto;
+        const doSwap = () => {
+          item.classList.add('cycling-out');
+          setTimeout(() => {
+            item.querySelector('img').src = newPhoto;
+            item.classList.remove('cycling-out');
+            item.classList.add('cycling-in');
+            setTimeout(() => item.classList.remove('cycling-in'), 500);
+          }, 400);
+        };
+        if (preload.complete) {
+          doSwap();
+        } else {
+          preload.onload = doSwap;
+          preload.onerror = doSwap; // fallback if load fails
+        }
+      }, 2800);
+    }
+
+    // Render the detail main panel content
+    // Update only city-specific content: hero photo + text box
+    function renderCityContent(key) {
+      const city = cityData[key];
+
+      // Update page hero with city info
+      heroCityImg.src = city.photo;
+      heroCityImg.alt = city.name;
+      heroCityName.textContent = city.name;
+      heroCityTagline.textContent = city.tagline;
+      pageHero.classList.add('city-active');
+
+      // Restart Ken Burns on hero image
+      heroCityImg.style.animation = 'none';
+      heroCityImg.offsetHeight;
+      heroCityImg.style.animation = '';
+
+      // Update text box
+      const teamInfo = document.getElementById('detail-team-info');
+      document.getElementById('detail-team-heading').textContent = city.heading;
+      document.getElementById('detail-team-desc').textContent = city.description;
+      document.getElementById('detail-team-stats').innerHTML = `
+        <span class="join-team-stat">Since <span>${city.established}</span></span>
+      `;
+    }
+
+    // Initialize the photo collage (only called once on first city select)
+    function initCollage() {
+      // Deduplicate by filename (different paths, same file)
+      const seen = new Set();
+      const uniquePhotos = teamPhotos.filter(p => {
+        const name = p.split('/').pop();
+        if (seen.has(name)) return false;
+        seen.add(name);
+        return true;
+      });
+      const shuffled = shuffle(uniquePhotos);
+      displayedPhotos = shuffled.slice(0, COLLAGE_SIZE);
+      photoPool = shuffled.slice(COLLAGE_SIZE);
+      cooldownPhotos = [];
+
+      const collage = document.getElementById('detail-team-collage');
+      collage.innerHTML = '';
+      displayedPhotos.forEach((photo, i) => {
+        const item = document.createElement('div');
+        item.className = 'join-collage-item';
+        item.innerHTML = `<img src="${photo}" alt="Team photo" loading="lazy">`;
+        collage.appendChild(item);
+        setTimeout(() => item.classList.add('visible'), 200 + i * 80);
+      });
+
+      // Start cycling photos after initial entrance
+      setTimeout(() => startCollageCycle(), 2000);
+    }
+
+    // Transition: grid -> detail
+    function selectCity(key) {
+      selectedCity = key;
+      history.pushState({ city: key }, '', '#city-' + key);
+
+      // Fade out grid
+      joinGrid.classList.add('leaving');
+
+      setTimeout(() => {
+        joinExplorer.style.display = 'none';
+        joinGrid.classList.remove('leaving');
+
+        // Show detail — init collage fresh, render city content + sidebar
+        renderCityContent(key);
+        initCollage();
+        renderSidebar(key);
+        joinDetail.classList.add('active');
+        document.body.classList.add('join-city-active');
+
+        // Trigger entering animation next frame
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            joinDetail.classList.add('entering');
+          });
+        });
+
+        // Scroll to top of page
+        window.scrollTo(0, 0);
+      }, 400);
+    }
+
+    // Transition: swap city — only hero + text box change, collage persists
+    function swapCity(newKey) {
+      selectedCity = newKey;
+      history.pushState({ city: newKey }, '', '#city-' + newKey);
+
+      // Only animate the text box, not the whole detail panel
+      const teamInfo = document.getElementById('detail-team-info');
+      teamInfo.classList.add('swapping-out');
+
+      setTimeout(() => {
+        renderCityContent(newKey);
+        renderSidebar(newKey);
+        teamInfo.classList.remove('swapping-out');
+        teamInfo.classList.add('swapping-in');
+
+        setTimeout(() => {
+          teamInfo.classList.remove('swapping-in');
+        }, 400);
+
+        // Scroll to top so hero change is visible
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 300);
+    }
+
+    // Transition: detail -> grid
+    function showGrid() {
+      stopCollageCycle();
+      selectedCity = null;
+      pageHero.classList.remove('city-active');
+      document.body.classList.remove('join-city-active');
+
+      joinDetail.classList.remove('entering');
+      joinDetail.style.opacity = '0';
+      joinDetail.style.transform = 'translateY(20px)';
+
+      setTimeout(() => {
+        joinDetail.classList.remove('active');
+        joinDetail.style.opacity = '';
+        joinDetail.style.transform = '';
+        joinExplorer.style.display = '';
+        window.scrollTo(0, 0);
+      }, 400);
+    }
+
+    // Event: grid card click
+    joinGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.join-city-card');
+      if (!card) return;
+      selectCity(card.dataset.city);
+    });
+
+    // Event: sidebar card click
+    sidebar.addEventListener('click', (e) => {
+      const card = e.target.closest('.join-sidebar-card');
+      if (!card) return;
+      swapCity(card.dataset.city);
+    });
+
+    // Event: back button
+    backBtn.addEventListener('click', () => {
+      history.pushState(null, '', window.location.pathname);
+      showGrid();
+    });
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', () => {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#city-')) {
+        const cityKey = hash.replace('#city-', '');
+        if (cityData[cityKey] && selectedCity !== cityKey) {
+          if (selectedCity) {
+            // Swap between cities — only update hero + text, collage persists
+            renderCityContent(cityKey);
+            renderSidebar(cityKey);
+            selectedCity = cityKey;
+          } else {
+            // From grid to detail — init collage fresh
+            joinExplorer.style.display = 'none';
+            renderCityContent(cityKey);
+            initCollage();
+            renderSidebar(cityKey);
+            joinDetail.classList.add('active');
+            joinDetail.classList.add('entering');
+            document.body.classList.add('join-city-active');
+            selectedCity = cityKey;
+            window.scrollTo(0, 0);
+          }
+        }
+      } else if (selectedCity) {
+        showGrid();
+      }
+    });
+
+    // Deep link support: check hash on load
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#city-')) {
+      const cityKey = hash.replace('#city-', '');
+      if (cityData[cityKey]) {
+        // Skip animation for direct link — show detail immediately
+        joinExplorer.style.display = 'none';
+        renderCityContent(cityKey);
+        initCollage();
+        renderSidebar(cityKey);
+        joinDetail.classList.add('active');
+        joinDetail.classList.add('entering');
+        document.body.classList.add('join-city-active');
+        selectedCity = cityKey;
+      }
+    }
+  }
+
+  /* ========== APPLY FORM ========== */
+
+  const applyForm = document.getElementById('apply-form');
+  if (applyForm) {
+    const fileInput = document.getElementById('resume');
+    const fileList = document.getElementById('file-list');
+    const uploadArea = document.getElementById('file-upload-area');
+
+    // Track selected files (DataTransfer lets us modify the FileList)
+    let selectedFiles = new DataTransfer();
+
+    function renderFileList() {
+      fileList.innerHTML = '';
+      for (let i = 0; i < selectedFiles.files.length; i++) {
+        const file = selectedFiles.files[i];
+        const item = document.createElement('div');
+        item.className = 'file-item';
+        item.innerHTML = `
+          <span class="file-item-name">${file.name}</span>
+          <button type="button" class="file-item-remove" data-index="${i}">&times;</button>
+        `;
+        fileList.appendChild(item);
+      }
+      fileInput.files = selectedFiles.files;
+    }
+
+    fileInput.addEventListener('change', () => {
+      for (const file of fileInput.files) {
+        selectedFiles.items.add(file);
+      }
+      renderFileList();
+    });
+
+    fileList.addEventListener('click', (e) => {
+      const btn = e.target.closest('.file-item-remove');
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.index);
+      const dt = new DataTransfer();
+      for (let i = 0; i < selectedFiles.files.length; i++) {
+        if (i !== idx) dt.items.add(selectedFiles.files[i]);
+      }
+      selectedFiles = dt;
+      renderFileList();
+    });
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      for (const file of e.dataTransfer.files) {
+        selectedFiles.items.add(file);
+      }
+      renderFileList();
+    });
+
+    // Validation + submit
+    applyForm.addEventListener('submit', (e) => {
+      let valid = true;
+      // Clear previous errors
+      applyForm.querySelectorAll('.form-group.error').forEach(g => g.classList.remove('error'));
+      applyForm.querySelectorAll('.form-error-msg').forEach(m => m.remove());
+
+      const required = applyForm.querySelectorAll('[required]');
+      required.forEach(field => {
+        const group = field.closest('.form-group');
+        if (!field.value.trim()) {
+          valid = false;
+          group.classList.add('error');
+          const msg = document.createElement('span');
+          msg.className = 'form-error-msg';
+          msg.textContent = 'This field is required.';
+          group.appendChild(msg);
+        }
+      });
+
+      // Email format check
+      const emailField = document.getElementById('email');
+      if (emailField.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value.trim())) {
+        valid = false;
+        const group = emailField.closest('.form-group');
+        group.classList.add('error');
+        if (!group.querySelector('.form-error-msg')) {
+          const msg = document.createElement('span');
+          msg.className = 'form-error-msg';
+          msg.textContent = 'Please enter a valid email address.';
+          group.appendChild(msg);
+        }
+      }
+
+      if (!valid) {
+        e.preventDefault();
+        // Scroll to first error
+        const firstError = applyForm.querySelector('.form-group.error');
+        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
   }
 
 });

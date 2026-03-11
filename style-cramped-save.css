@@ -1116,40 +1116,6 @@ a.location-card {
   line-height: 1.7;
 }
 
-/* ---------- Hero Mixed-Weight Treatment ---------- */
-/* Lighter base weight with bold gold highlight — editorial feel */
-.page-hero h1.hero-mixed,
-h2.hero-mixed {
-  font-weight: 400;
-  letter-spacing: 0.5px;
-}
-.hero-mixed .highlight {
-  font-weight: 800;
-  color: var(--gold);
-}
-
-/* Subtle radial gold glow behind hero heading */
-.page-hero:has(.hero-mixed) {
-  position: relative;
-  padding: 110px 0 44px;
-}
-.page-hero:has(.hero-mixed)::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -55%);
-  width: 600px;
-  height: 200px;
-  background: radial-gradient(ellipse, rgba(212, 168, 75, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-.page-hero:has(.hero-mixed) .container {
-  position: relative;
-  z-index: 1;
-}
-
 /* ============================================
    VALUES SECTION (About page)
    ============================================ */
@@ -2657,7 +2623,7 @@ body.join-page {
 
 .join-detail-view {
   display: none;
-  padding: 36px 0 32px;
+  padding: 22px 0 18px;
   position: relative;
   z-index: 3;
   opacity: 0;
@@ -2793,7 +2759,7 @@ body.join-page {
 }
 
 .join-page .page-hero.city-active {
-  padding: 120px 0 48px;
+  padding: 110px 0 28px;
 }
 
 .join-page .page-hero h1 {
@@ -2945,9 +2911,9 @@ body.join-city-active .site-nav .menu-toggle {
 .join-team-collage {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 210px;
-  gap: 12px;
-  margin-top: 18px;
+  grid-auto-rows: 200px;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .join-collage-item {
@@ -2996,7 +2962,7 @@ body.join-city-active .site-nav .menu-toggle {
 /* Team description */
 .join-team-info {
   margin-top: 0;
-  padding: 20px 28px;
+  padding: 14px 24px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
@@ -3041,7 +3007,7 @@ body.join-city-active .site-nav .menu-toggle {
 .join-detail-cta {
   display: flex;
   gap: 16px;
-  margin-top: 24px;
+  margin-top: 14px;
 }
 
 .join-back-btn {

@@ -344,10 +344,14 @@ document.addEventListener('DOMContentLoaded', () => {
       'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.43.42.jpg',
       'Photos/Company Team Photos/Calgary Team Photos/PmMdlSO_09fwIHY8Y_S17X6pe7pzdqHiIIcfNku8ZrseJxFPc.jpg',
       'Photos/Company Team Photos/Calgary Team Photos/ghdZDFEyncgLVw8vGIaHJdX1acgN0aQUaciSWy5oZnQeJxFPc.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 16.27.10.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 16.27.17.jpg',
+      'Photos/Company Team Photos/Calgary Team Photos/F749ED74-04F4-4DDF-9646-25ACA31F009F.jpg.jpeg',
+      'Photos/Company Team Photos/Calgary Team Photos/IMG_7359.jpeg',
       'Photos/Company Team Photos/FLARE Teams/2607200253510320142.jpeg',
       'Photos/Company Team Photos/FLARE Teams/4528505928960839980.jpeg',
       'Photos/Company Team Photos/FLARE Teams/8697860766244300564.jpeg',
-      'Photos/Company Team Photos/Gala Photos/ghdZDFEyncgLVw8vGIaHJdX1acgN0aQUaciSWy5oZnQeJxFPc.jpg',
+      // Removed duplicate: ghdZDFEyncgLVw8vGIaHJdX1acgN0aQUaciSWy5oZnQeJxFPc.jpg (same as Calgary copy)
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.30.32.jpg',
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.31.11.jpg',
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.31.46.jpg',
@@ -499,19 +503,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 30000);
 
         const item = items[slotIdx];
-        // Quick crossfade — fade out, swap, fade in
-        item.classList.add('cycling-out');
-        setTimeout(() => {
-          item.querySelector('img').src = newPhoto;
-          item.classList.remove('cycling-out');
-          item.classList.add('cycling-in');
-          setTimeout(() => item.classList.remove('cycling-in'), 500);
-        }, 400);
+        // Preload new image, then crossfade
+        const preload = new Image();
+        preload.src = newPhoto;
+        const doSwap = () => {
+          item.classList.add('cycling-out');
+          setTimeout(() => {
+            item.querySelector('img').src = newPhoto;
+            item.classList.remove('cycling-out');
+            item.classList.add('cycling-in');
+            setTimeout(() => item.classList.remove('cycling-in'), 500);
+          }, 400);
+        };
+        if (preload.complete) {
+          doSwap();
+        } else {
+          preload.onload = doSwap;
+          preload.onerror = doSwap; // fallback if load fails
+        }
       }, 2800);
     }
 
     // Render the detail main panel content
-    function renderDetail(key) {
+    // Update only city-specific content: hero photo + text box
+    function renderCityContent(key) {
       const city = cityData[key];
 
       // Update page hero with city info
@@ -526,16 +541,26 @@ document.addEventListener('DOMContentLoaded', () => {
       heroCityImg.offsetHeight;
       heroCityImg.style.animation = '';
 
+      // Update text box
+      const teamInfo = document.getElementById('detail-team-info');
       document.getElementById('detail-team-heading').textContent = city.heading;
       document.getElementById('detail-team-desc').textContent = city.description;
-
-      // Stats
       document.getElementById('detail-team-stats').innerHTML = `
         <span class="join-team-stat">Since <span>${city.established}</span></span>
       `;
+    }
 
-      // Photo collage — pick random 6, keep rest in pool for cycling
-      const shuffled = shuffle(teamPhotos);
+    // Initialize the photo collage (only called once on first city select)
+    function initCollage() {
+      // Deduplicate by filename (different paths, same file)
+      const seen = new Set();
+      const uniquePhotos = teamPhotos.filter(p => {
+        const name = p.split('/').pop();
+        if (seen.has(name)) return false;
+        seen.add(name);
+        return true;
+      });
+      const shuffled = shuffle(uniquePhotos);
       displayedPhotos = shuffled.slice(0, COLLAGE_SIZE);
       photoPool = shuffled.slice(COLLAGE_SIZE);
       cooldownPhotos = [];
@@ -566,8 +591,9 @@ document.addEventListener('DOMContentLoaded', () => {
         joinExplorer.style.display = 'none';
         joinGrid.classList.remove('leaving');
 
-        // Show detail
-        renderDetail(key);
+        // Show detail — init collage fresh, render city content + sidebar
+        renderCityContent(key);
+        initCollage();
         renderSidebar(key);
         joinDetail.classList.add('active');
         document.body.classList.add('join-city-active');
@@ -584,29 +610,27 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 400);
     }
 
-    // Transition: swap city in detail view
+    // Transition: swap city — only hero + text box change, collage persists
     function swapCity(newKey) {
       selectedCity = newKey;
       history.pushState({ city: newKey }, '', '#city-' + newKey);
 
-      detailMain.classList.add('swapping-out');
+      // Only animate the text box, not the whole detail panel
+      const teamInfo = document.getElementById('detail-team-info');
+      teamInfo.classList.add('swapping-out');
 
       setTimeout(() => {
-        renderDetail(newKey);
+        renderCityContent(newKey);
         renderSidebar(newKey);
-        detailMain.classList.remove('swapping-out');
-        detailMain.style.opacity = '0';
-        detailMain.style.transform = 'translateX(-30px)';
+        teamInfo.classList.remove('swapping-out');
+        teamInfo.classList.add('swapping-in');
 
-        requestAnimationFrame(() => {
-          detailMain.classList.add('swapping-in');
-          detailMain.style.opacity = '';
-          detailMain.style.transform = '';
+        setTimeout(() => {
+          teamInfo.classList.remove('swapping-in');
+        }, 400);
 
-          setTimeout(() => {
-            detailMain.classList.remove('swapping-in');
-          }, 400);
-        });
+        // Scroll to top so hero change is visible
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 300);
     }
 
@@ -657,14 +681,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const cityKey = hash.replace('#city-', '');
         if (cityData[cityKey] && selectedCity !== cityKey) {
           if (selectedCity) {
-            // Swap between cities
-            renderDetail(cityKey);
+            // Swap between cities — only update hero + text, collage persists
+            renderCityContent(cityKey);
             renderSidebar(cityKey);
             selectedCity = cityKey;
           } else {
-            // From grid to detail
+            // From grid to detail — init collage fresh
             joinExplorer.style.display = 'none';
-            renderDetail(cityKey);
+            renderCityContent(cityKey);
+            initCollage();
             renderSidebar(cityKey);
             joinDetail.classList.add('active');
             joinDetail.classList.add('entering');
@@ -685,7 +710,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (cityData[cityKey]) {
         // Skip animation for direct link — show detail immediately
         joinExplorer.style.display = 'none';
-        renderDetail(cityKey);
+        renderCityContent(cityKey);
+        initCollage();
         renderSidebar(cityKey);
         joinDetail.classList.add('active');
         joinDetail.classList.add('entering');
@@ -693,6 +719,111 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedCity = cityKey;
       }
     }
+  }
+
+  /* ========== APPLY FORM ========== */
+
+  const applyForm = document.getElementById('apply-form');
+  if (applyForm) {
+    const fileInput = document.getElementById('resume');
+    const fileList = document.getElementById('file-list');
+    const uploadArea = document.getElementById('file-upload-area');
+
+    // Track selected files (DataTransfer lets us modify the FileList)
+    let selectedFiles = new DataTransfer();
+
+    function renderFileList() {
+      fileList.innerHTML = '';
+      for (let i = 0; i < selectedFiles.files.length; i++) {
+        const file = selectedFiles.files[i];
+        const item = document.createElement('div');
+        item.className = 'file-item';
+        item.innerHTML = `
+          <span class="file-item-name">${file.name}</span>
+          <button type="button" class="file-item-remove" data-index="${i}">&times;</button>
+        `;
+        fileList.appendChild(item);
+      }
+      fileInput.files = selectedFiles.files;
+    }
+
+    fileInput.addEventListener('change', () => {
+      for (const file of fileInput.files) {
+        selectedFiles.items.add(file);
+      }
+      renderFileList();
+    });
+
+    fileList.addEventListener('click', (e) => {
+      const btn = e.target.closest('.file-item-remove');
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.index);
+      const dt = new DataTransfer();
+      for (let i = 0; i < selectedFiles.files.length; i++) {
+        if (i !== idx) dt.items.add(selectedFiles.files[i]);
+      }
+      selectedFiles = dt;
+      renderFileList();
+    });
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      for (const file of e.dataTransfer.files) {
+        selectedFiles.items.add(file);
+      }
+      renderFileList();
+    });
+
+    // Validation + submit
+    applyForm.addEventListener('submit', (e) => {
+      let valid = true;
+      // Clear previous errors
+      applyForm.querySelectorAll('.form-group.error').forEach(g => g.classList.remove('error'));
+      applyForm.querySelectorAll('.form-error-msg').forEach(m => m.remove());
+
+      const required = applyForm.querySelectorAll('[required]');
+      required.forEach(field => {
+        const group = field.closest('.form-group');
+        if (!field.value.trim()) {
+          valid = false;
+          group.classList.add('error');
+          const msg = document.createElement('span');
+          msg.className = 'form-error-msg';
+          msg.textContent = 'This field is required.';
+          group.appendChild(msg);
+        }
+      });
+
+      // Email format check
+      const emailField = document.getElementById('email');
+      if (emailField.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value.trim())) {
+        valid = false;
+        const group = emailField.closest('.form-group');
+        group.classList.add('error');
+        if (!group.querySelector('.form-error-msg')) {
+          const msg = document.createElement('span');
+          msg.className = 'form-error-msg';
+          msg.textContent = 'Please enter a valid email address.';
+          group.appendChild(msg);
+        }
+      }
+
+      if (!valid) {
+        e.preventDefault();
+        // Scroll to first error
+        const firstError = applyForm.querySelector('.form-group.error');
+        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
   }
 
 });

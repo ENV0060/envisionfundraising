@@ -18,7 +18,7 @@ Multi-page marketing website for **Envision Fundraising Inc.**, a Canadian/US co
 | `--dark-card`  | `#141426` | Card backgrounds         |
 
 ### Typography
-- **Headings:** Outfit (800/900 weight)
+- **Headings:** Outfit (800/900 weight; 400 base + 800 gold highlight on mixed-weight hero pages)
 - **Body:** Inter (400–600 weight)
 - Both loaded via Google Fonts
 
@@ -36,7 +36,7 @@ Envision - Website/
 ├── partner.html            # Partner With Us (complete)
 ├── charities.html          # Launch Your Campaign (placeholder)
 ├── join.html               # Join a Team Near You (complete — interactive city explorer)
-├── contact.html            # Contact page (placeholder)
+├── contact.html            # Apply Now page (complete — Netlify form)
 ├── Photos/                 # Team & brand photos
 │   ├── John MacInnis.png
 │   ├── Aidan Hughes.jpeg
@@ -50,6 +50,8 @@ Envision - Website/
 │   └── Join a Team Landing Photos/  # 5 static photos for join landing hero
 ├── index-new-logo.html     # Save state: [ENVISION] CSS text logo version
 ├── style-new-logo.css      # Save state: [ENVISION] CSS text logo version
+├── join-cramped-save.html  # Save state: join page before un-cramping
+├── style-cramped-save.css  # Save state: style before un-cramping join page
 ├── Location Photos/        # City skyline/landmark photos
 │   ├── Ottawa, ON.jpg
 │   ├── Toronto, ON.jpg
@@ -208,18 +210,27 @@ Interactive city explorer page for team recruitment:
 - **`.join-content-wrapper`**: Same radial gradient overlay pattern as partner/team/about pages. `::before` navy veil for seamless hero blend.
 - **City Selection Grid** (`.join-explorer`): 8 city cards in 4-column grid (`max-width: 1200px`). Each card: skyline photo, gradient scrim, city name + metadata (region, est. year). Bouncy hover (scale + translateY + gold border glow). Cities: Ottawa (2016), Toronto/GTA (2017), Vancouver (2018), Calgary (2020), Edmonton (2021), Halifax (2025), Columbus (2025), Windsor (2025).
 - **City Detail View** (`.join-detail`): Two-column layout — left sidebar (220px sticky) with 7 other city thumbnail cards + "Join a Team Near You" label; right main panel with team info card, 6-photo collage (3x2 grid), Apply Now + View All Cities CTAs.
-- **Photo Collage**: 6 generic team photos from `Photos/Company Team Photos/` in 3-column CSS grid (200px rows). Photos cycle every 2.8s with opacity fade animation. 30-second cooldown prevents duplicate photos. Fisher-Yates shuffle for randomized pool.
+- **Photo Collage**: 6 generic team photos from `Photos/Company Team Photos/` in 3-column CSS grid (210px rows, 12px gap). Photos cycle every 2.8s with opacity fade animation. Runtime filename-based dedup prevents same image from different paths. 30-second cooldown on removed photos before re-entering pool. Fisher-Yates shuffle for randomized order.
 - **Transitions**: Grid → detail (fade out/up → fade in/up with staggered sidebar + collage entrance). City swap via sidebar (crossfade main panel). Detail → grid via "View All Cities" button.
 - **Browser History**: `pushState`/`popstate` for proper back/forward navigation between grid and city states. URL hash deep linking (`#city-ottawa` etc.).
 - **CTA Section**: "Looking for Other Opportunities?" with editorial two-column layout (reuses `.team-cta-row`): For Directors → Partner With Us, For Charities → Launch a Campaign.
 - **Nav Contrast**: When city photo hero is active, `body.join-city-active` adds heavier text-shadow on nav links and drop-shadow on logo/hamburger for readability over photos.
 - Shared footer + nav with visible nav-links
 
-### contact.html (Placeholder)
-"Coming Soon" placeholder page for contact:
-- `<body class="partner-page">` — reuses dark navy theme
-- Construction section with "Get In Touch" heading, Back to Home + Email Us CTAs
-- Shared nav + footer
+### contact.html (Complete — Apply Page)
+Application/contact form page with Netlify form integration:
+- `<body class="partner-page apply-page">` — reuses dark navy theme + apply-specific overrides
+- **Page Hero**: "Become an Envisionite Today" heading + "Your next chapter starts here." subtitle. Compact hero padding (`90px 0 24px` via `body.apply-page .page-hero`).
+- **Apply Form** (`.apply-form`): Netlify-powered form (`data-netlify="true"`, `name="apply"`) with honeypot spam protection (`netlify-honeypot="bot-field"`), `enctype="multipart/form-data"` for file uploads.
+  - Form fields: First Name\*, Last Name\*, City of Residence, City Applying To\* (select dropdown with 8 cities), Email\*, Phone Number
+  - **Contact Reason**: Radio group with custom selection circles (`.select-circle`) — "Join a Team" (default), "Charity looking to launch a campaign", "Established Office(s) considering partnership"
+  - **Preferred Contact Method**: Inline radio group — Email (default), Phone
+  - **File Upload**: Drag-and-drop area with file list + remove buttons. Uses DataTransfer API for managing multiple files. Accepts PDF, DOC, DOCX, TXT, RTF, JPG, JPEG, PNG.
+  - **Notes & Questions**: Textarea
+  - **Submit**: Gold CTA button, client-side validation (required fields + email format)
+- **CTA Section**: "Looking for Something Else?" with Partner With Us + Join a Team links
+- Shared footer + nav with visible nav-links
+- Script tag uses cache buster: `script.js?v=13`
 
 ## Navigation — Unified Across All Pages
 
@@ -263,6 +274,7 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - **Stats counter**: requestAnimationFrame with ease-out cubic curve, triggered by IntersectionObserver
 - **Mobile locations carousel**: 3D horizontal auto-scroll with manual touch override
 - **City ticker**: Duplicates innerHTML for seamless CSS animation loop
+- **Apply form** (`#apply-form`): File upload with DataTransfer API (add/remove multiple files), drag-and-drop support, client-side validation (required fields + email format), scrolls to first error on invalid submit
 
 ## Key CSS Patterns
 
@@ -289,6 +301,9 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - **`.inspire-boost`**: Separate DOM element for selectively boosting opacity of part of a watermark logo. Uses `clip-path: polygon()` to isolate specific text. Must be outside the parent element whose opacity is capped by animation. Position set by JS via `getComputedStyle()` (no static CSS positioning).
 - **Wrapper div pattern** also used on about.html (`.about-content-wrapper`) — all three sub-page content areas share the same radial gradient overlay approach.
 - Three responsive breakpoints: 1024px (tablet), 768px (mobile), 480px (small mobile)
+- **Hero mixed-weight treatment** (`.hero-mixed`): About, Team, Partner pages use lighter base weight (400) with bold gold highlight (800) + subtle radial gold glow via `::after` pseudo-element. Uses `:has(.hero-mixed)` selector on `.page-hero` for glow + reduced padding. Creates editorial contrast vs the heavy 900-weight used on Join/Contact pages.
+- **Apply form styling** (`.apply-*`): Dark card form with custom select circles (`.select-circle`), drag-and-drop file upload area, gold focus borders, validation error states. Custom select dropdown arrow via SVG data URI.
+- **Photo collage dedup**: Runtime filename-based deduplication in `initCollage()` prevents same image from different paths appearing. 30-second cooldown on removed photos before re-entering the pool.
 
 ## Charity Partners & Links
 
@@ -309,7 +324,6 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 
 ### Sub-Pages Need Content
 - `charities.html` — Currently "Coming Soon" placeholder. Needs full Launch Your Campaign content.
-- `contact.html` — Currently "Coming Soon" placeholder. Needs full contact form / details.
 
 ### Placeholder Content to Replace
 - Team member descriptions & quotes still placeholder for: Michael Beatty, Krystal Shannon (`team.html`)

@@ -548,6 +548,13 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('detail-team-stats').innerHTML = `
         <span class="join-team-stat">Since <span>${city.established}</span></span>
       `;
+
+      // Show city-specific spotlight (e.g. Vancouver Directorship) only when it matches
+      const spotlight = document.getElementById('detail-city-spotlight');
+      if (spotlight) {
+        const spotlightCity = spotlight.dataset.city;
+        spotlight.classList.toggle('active', key === spotlightCity);
+      }
     }
 
     // Initialize the photo collage (only called once on first city select)

@@ -68,3 +68,15 @@ Landscape skyline shots work best (same style as the existing city photos).
 The homepage stats say **20+ Cities** and `about.html` says "operating across 20+ cities". The site now lists **11 offices**. That can still be accurate if campaigns reach more cities than there are offices. Confirm it or update the numbers.
 
 Also worth a read: the new office descriptions for Mississauga, Denver, Houston and Montreal in `script.js` (`cityData`) are draft copy.
+
+---
+
+## 5. Replace John and Aidan placeholder bios and photos
+
+**Status:** Pending (waiting on final bios and photos from Ollie)
+**Priority:** Medium
+
+- **John MacInnis:** quote is final (2026-09-30), the "Sales showed me…" founder quote. The bio paragraph (Road Runner / TED Talk) and photo are still placeholders.
+- **Aidan Hughes:** bio, quote and photo are all still placeholders.
+
+Both live in `team.html` (`.team-featured-card`).

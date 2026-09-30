@@ -346,3 +346,9 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - Warm, mission-driven but visually sophisticated aesthetic
 - No frameworks — clean multi-page HTML/CSS/JS
 - Personality-driven copy (team bios are witty/bold, not corporate)
+
+## Director Openings (Open Positions)
+- **Join page**: `directorOpenings` object in script.js (next to `cityData`) lists hiring cities (currently Ottawa, Vancouver, Halifax) with a per-city lead paragraph. `renderCityContent()` fills `#spotlight-city-name`, `#spotlight-lead`, `#spotlight-meta` and toggles `.active` on `#detail-city-spotlight`. Add/remove a city by editing that object only.
+- **Partner page**: "Open Positions · Director" card (`.partner-spotlight-card`) with three city tiles (`.partner-spotlight-cities`) linking to `join.html#city-...`. Keep this list in sync with `directorOpenings`.
+- Pay chip ($39–42/hr) is shared across all openings.
+- Ottawa has no active office right now but stays listed (founding city, Director opening to relaunch it).

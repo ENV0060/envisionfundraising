@@ -2138,6 +2138,51 @@ body.partner-page {
   font-weight: 800;
 }
 
+.partner-spotlight-cities {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.partner-spotlight-city {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid rgba(212, 168, 75, 0.25);
+  border-radius: 10px;
+  background: rgba(212, 168, 75, 0.05);
+  text-decoration: none;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.partner-spotlight-city strong {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--white);
+}
+
+.partner-spotlight-city span {
+  font-size: 0.82rem;
+  color: var(--grey-text);
+}
+
+.partner-spotlight-city:hover {
+  border-color: var(--gold);
+  background: rgba(212, 168, 75, 0.1);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .partner-spotlight-cities {
+    grid-template-columns: 1fr;
+  }
+}
+
 .partner-spotlight-cta {
   display: flex;
   align-items: center;

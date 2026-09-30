@@ -377,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
         photo: 'Location Photos/Ottawa, ON.jpg',
         tagline: 'Where it all started.',
         heading: 'The Ottawa Crew',
-        description: 'The founding city. Ottawa is where Envision began back in 2014 — a small team with a big idea about how fundraising should actually work. Today, the Ottawa office is still the heartbeat of the operation. If you want to learn from the people who built this thing from scratch, this is your squad.',
+        description: 'The founding city. Ottawa is where Envision began back in 2014 — a small team with a big idea about how fundraising should actually work.',
         established: '2014',
         founding: true
       },
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
         photo: 'Location Photos/Vancouver, BC.jpg',
         tagline: 'West coast, best coast.',
         heading: 'The Vancouver Team',
-        description: 'Mountains, ocean, and a team that matches the energy. Vancouver was one of the first expansion cities and it shows — the crew out here runs tight campaigns with a laid-back West Coast edge. Great vibes, great results, and you might catch a sunset on your lunch break.',
+        description: 'Mountains, ocean, and a team that matches the energy. Vancouver was one of our first expansion cities and is now home to four separate teams. Great views, even better people, and ready for a fifth.',
         established: '2017'
       },
       calgary: {
@@ -402,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
         photo: 'Location Photos/Calgary, AB.jpg',
         tagline: 'Alberta grit meets fundraising hustle.',
         heading: 'The Calgary Crew',
-        description: 'Calgary doesn\'t mess around. The Alberta crew brings a work ethic that\'s hard to match and a culture that\'s even harder to leave. This team has grown fast because they keep it real — honest conversations, genuine connections, and results that speak for themselves.',
+        description: 'Calgary doesn\'t mess around. The Alberta crew brings a work ethic that\'s hard to match and a culture that\'s even harder to leave. Run by friends who feel like family, they\'re always looking for their next member.',
         established: '2018'
       },
       edmonton: {
@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         photo: 'Location Photos/Windsor, ON.jpg',
         tagline: 'Small city energy, big results.',
         heading: 'The Windsor Team',
-        description: 'Right on the border and full of surprises. Windsor is proof that you don\'t need a massive market to build a massive impact. This team is scrappy, hungry, and consistently outperforms expectations. Perfect for someone who wants to make a name for themselves.',
+        description: 'Right on the border and full of surprises. Windsor is proof that you don\'t need a massive market to build a massive impact. The crew here is close-knit and driven — the kind of team that celebrates every win together. Perfect for someone who wants to make a name for themselves.',
         established: '2024'
       },
       denver: {
@@ -452,6 +452,19 @@ document.addEventListener('DOMContentLoaded', () => {
         heading: 'The Montreal Team',
         description: 'Our newest Canadian office. Montreal brings culture, character, and a whole lot of heart — and now it\'s got an Envision team to match. Bilingual? Even better. Get in on the ground floor of something brand new.',
         established: '2026'
+      }
+    };
+
+    // Open Director positions — each city listed here shows the Directorship spotlight on its page
+    const directorOpenings = {
+      ottawa: {
+        lead: 'Ottawa is where Envision started, and we\'re ready to bring it back. We\'re looking for a Director to rebuild our founding city from the ground up. If you can train, hire, and lead — this is your shot at running an office.'
+      },
+      vancouver: {
+        lead: 'Vancouver is home to four teams and ready for a fifth. We\'re looking for a Director to build it from the ground up. If you can train, hire, and lead — this is your shot at running an office.'
+      },
+      halifax: {
+        lead: 'Halifax is growing, and we\'re looking for a Director ready to take the East Coast to the next level. If you can train, hire, and lead — this is your shot at running an office.'
       }
     };
 
@@ -580,11 +593,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ${city.founding ? '<span class="join-team-stat">★ Founding Office</span>' : ''}
       `;
 
-      // Show city-specific spotlight (e.g. Vancouver Directorship) only when it matches
+      // Show the Director opening spotlight only for cities that are hiring
       const spotlight = document.getElementById('detail-city-spotlight');
       if (spotlight) {
-        const spotlightCity = spotlight.dataset.city;
-        spotlight.classList.toggle('active', key === spotlightCity);
+        const opening = directorOpenings[key];
+        if (opening) {
+          document.getElementById('spotlight-city-name').textContent = city.name;
+          document.getElementById('spotlight-lead').textContent = opening.lead;
+          document.getElementById('spotlight-meta').textContent = `${city.name}-based · Full-time`;
+        }
+        spotlight.classList.toggle('active', Boolean(opening));
       }
     }
 

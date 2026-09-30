@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Join a Team Near You — Envision Fundraising Inc.</title>
   <meta name="description" content="Join Envision Fundraising. Find a team near you and start a career in face-to-face fundraising for leading charities across Canada and the United States.">
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=19">
 </head>
 <body class="join-page">
 
@@ -170,17 +170,15 @@
               <div class="join-team-stats" id="detail-team-stats"></div>
             </div>
 
-            <!-- Vancouver Directorship spotlight (shown only for Vancouver) -->
-            <div class="join-city-spotlight" id="detail-city-spotlight" data-city="vancouver">
+            <!-- Director opening spotlight (shown for cities listed in directorOpenings in script.js) -->
+            <div class="join-city-spotlight" id="detail-city-spotlight">
               <div class="join-city-spotlight-inner">
                 <div class="join-city-spotlight-badges">
                   <span class="join-city-spotlight-badge">Directorship Opportunity</span>
                   <span class="join-city-spotlight-pay">$39–42/hr</span>
                 </div>
-                <h3 class="hero-mixed">Lead the <span class="highlight">Vancouver</span> Office.</h3>
-                <p class="join-city-spotlight-lead">
-                  We're actively growing the West Coast and looking for a Director to build the team from the ground up. If you can train, hire, and lead — this is your shot at running an office.
-                </p>
+                <h3 class="hero-mixed">Lead the <span class="highlight" id="spotlight-city-name"></span> Office.</h3>
+                <p class="join-city-spotlight-lead" id="spotlight-lead"></p>
                 <div class="join-city-spotlight-grid">
                   <div class="join-city-spotlight-col">
                     <h4>What You'll Do</h4>
@@ -201,7 +199,7 @@
                 </div>
                 <div class="join-city-spotlight-cta">
                   <a href="contact.html" class="btn btn-gold">Apply for Directorship</a>
-                  <span class="join-city-spotlight-meta">Vancouver-based · Full-time</span>
+                  <span class="join-city-spotlight-meta" id="spotlight-meta"></span>
                 </div>
               </div>
             </div>
@@ -279,6 +277,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=18"></script>
+  <script src="script.js?v=19"></script>
 </body>
 </html>

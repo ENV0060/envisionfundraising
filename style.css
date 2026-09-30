@@ -2982,6 +2982,20 @@ body.join-page {
   margin: 0 auto;
 }
 
+/* Desktop: 8-column grid with cards spanning 2, so a partial last row can be centered */
+@media (min-width: 1025px) {
+  .join-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+  .join-grid > .join-city-card {
+    grid-column: span 2;
+  }
+  /* Last row with 1, 2 or 3 cards — shift the first one so the row sits centered */
+  .join-grid > .join-city-card:nth-child(4n+1):nth-last-child(1) { grid-column: 4 / span 2; }
+  .join-grid > .join-city-card:nth-child(4n+1):nth-last-child(2) { grid-column: 3 / span 2; }
+  .join-grid > .join-city-card:nth-child(4n+1):nth-last-child(3) { grid-column: 2 / span 2; }
+}
+
 .join-grid.leaving {
   opacity: 0;
   transform: translateY(20px);

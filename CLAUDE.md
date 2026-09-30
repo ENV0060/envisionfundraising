@@ -39,9 +39,9 @@ Envision - Website/
 ├── contact.html            # Apply Now page (complete — Netlify form)
 ├── Photos/                 # Team & brand photos
 │   ├── John MacInnis.png
-│   ├── Aidan Hughes.jpeg
+│   ├── Aidan Hughes.jpg
 │   ├── Oliver Beatty.png
-│   ├── Micahel Beatty.jpg    (note: filename typo preserved)
+│   ├── Michael Beatty.png
 │   ├── Megan White.jpg
 │   ├── Krystal Shannon.jpg
 │   ├── Envision Logo.jpg
@@ -168,10 +168,10 @@ Meet the Team page with:
 - **`.team-paths-wrapper`**: Wraps both `.team-section` and `.paths-section` in a single div so radial gradient overlays (vignette, gold glow, teal glow) span both sections seamlessly — eliminates the visible seam that occurred when overlays were on separate elements. Both sections have `background: transparent` so the body gradient + wrapper overlays show through.
   - `::before` pseudo-element creates a dark navy veil (200px) that fades the page-hero into the team section
 - **Featured Team** (`.team-featured`): Side-by-side photo + bio cards for:
-  - John MacInnis — CEO & Founder (real photo: `Photos/John MacInnis.png`)
-  - Aidan Hughes — Vice President (real photo: `Photos/Aidan Hughes.jpeg`)
+  - John MacInnis — CEO & Founder (`Photos/John MacInnis.png?v=2`) — founder-story bio ("Sales showed me…"), quote "Inspire Change."
+  - Aidan Hughes — Vice President (`Photos/Aidan Hughes.jpg`) — records/strategy/support bio, quote "The only thing stopping you is you."
   - Oliver Beatty — Director Liaison & Analytics (real photo: `Photos/Oliver Beatty.png`) — full bio + quote ("Fear in the face of adversity...")
-  - Michael Beatty — Payroll & Administration (real photo: `Photos/Micahel Beatty.jpg`) [description placeholder]
+  - Michael Beatty — Payroll & Administration (`Photos/Michael Beatty.png`) [description placeholder]
   - Megan White — Campaign Coordinator (real photo: `Photos/Megan White.jpg`)
   - Krystal Shannon — Hiring & Communications (real photo: `Photos/Krystal Shannon.jpg`) [description placeholder]
   - Even-numbered cards use `flex-direction: row-reverse` for alternating layout

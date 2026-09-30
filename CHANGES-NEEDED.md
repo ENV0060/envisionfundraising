@@ -73,10 +73,8 @@ Also worth a read: the new office descriptions for Mississauga, Denver, Houston 
 
 ## 5. Replace John and Aidan placeholder bios and photos
 
-**Status:** Pending (waiting on final bios and photos from Ollie)
-**Priority:** Medium
+**Status:** Done (2026-09-30). New bios, quotes and photos for John and Aidan, plus a new photo for Michael.
 
-- **John MacInnis:** bio and quote are final (2026-09-30). The bio is the "Sales showed me…" founder story and the quote is "Inspire Change." Only the photo is still a placeholder.
-- **Aidan Hughes:** bio, quote and photo are all still placeholders.
+Still placeholder on the team page: Michael Beatty's and Krystal Shannon's descriptions and quotes.
 
 Both live in `team.html` (`.team-featured-card`).

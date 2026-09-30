@@ -34,7 +34,7 @@ Envision - Website/
 ├── about.html              # About Us (complete)
 ├── team.html               # Meet the Team (complete)
 ├── partner.html            # Partner With Us (complete)
-├── charities.html          # Launch Your Campaign (placeholder)
+├── charities.html          # Launch Your Campaign (complete — charity portal)
 ├── join.html               # Join a Team Near You (complete — interactive city explorer)
 ├── contact.html            # Apply Now page (complete — Netlify form)
 ├── Photos/                 # Team & brand photos
@@ -197,11 +197,16 @@ Partner With Us page for fundraising directors:
   - "For Individuals" → Join a Team → `join.html`
 - Shared footer + nav with visible nav-links
 
-### charities.html (Placeholder)
-"Coming Soon" placeholder page for charity campaign launches:
-- `<body class="partner-page">` — reuses dark navy theme
-- Construction section with "Launch Your Campaign" heading, "Inspired Changes" tagline, Back to Home + Get In Touch CTAs
-- Shared nav + footer
+### charities.html (Complete — Charity Portal)
+Sleek, simple portal page for charities:
+- `<body class="partner-page charity-page">` — reuses dark navy theme + `.partner-content-wrapper` overlays
+- **Page Hero** (`.hero-mixed`): "You've got the cause. **We've got the voice.**" + subtitle + Launch Your Campaign button
+- **Intro** (reuses `.partner-details-grid`): "Your mission, in person." copy left, "What We Handle" 6-item checklist panel right
+- **How It Works** (`.charity-steps`): 3 cards (01 We Listen / 02 We Train / 03 We Launch) with gold top accent that extends on hover
+- **Stats** (`.charity-stats`): reuses homepage `.stats-grid` counter, 3 items (12+ Years, 500,000+ Donors, 11 Offices)
+- **Final CTA** (`.charity-final-card`): "Let's put your cause in front of people."
+- **Not a Charity?**: `.team-cta-row` → Partner With Us / Join Our Team
+- All CTAs link to `contact.html?reason=charity`, which preselects the "Charity looking to launch a campaign" radio (also supports `?reason=team` / `?reason=partner`)
 
 ### join.html (Complete)
 Interactive city explorer page for team recruitment:
@@ -230,7 +235,7 @@ Application/contact form page with Netlify form integration:
   - **Submit**: Gold CTA button, client-side validation (required fields + email format)
 - **CTA Section**: "Looking for Something Else?" with Partner With Us + Join a Team links
 - Shared footer + nav with visible nav-links
-- All pages use cache busters `style.css?v=17` / `script.js?v=17` — bump on every CSS/JS change
+- All pages use cache busters `style.css?v=18` / `script.js?v=18` — bump on every CSS/JS change
 
 ## Navigation — Unified Across All Pages
 
@@ -323,9 +328,6 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 **Note:** Charity logos are NOT currently displayed on any page. The logo wall was removed from the homepage. Logos remain in `Charity Logos/` folder for potential future use.
 
 ## Pending / In Progress
-
-### Sub-Pages Need Content
-- `charities.html` — Currently "Coming Soon" placeholder. Needs full Launch Your Campaign content.
 
 ### Placeholder Content to Replace
 - Team member descriptions & quotes still placeholder for: Michael Beatty, Krystal Shannon (`team.html`)

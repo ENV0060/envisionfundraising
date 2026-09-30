@@ -763,6 +763,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const applyForm = document.getElementById('apply-form');
   if (applyForm) {
+    // Preselect contact reason from links like contact.html?reason=charity
+    const reasonValues = {
+      team: 'Join a Team',
+      charity: 'Charity looking to launch a campaign',
+      partner: 'Established Office(s) considering partnership'
+    };
+    const reasonParam = new URLSearchParams(window.location.search).get('reason');
+    if (reasonValues[reasonParam]) {
+      const reasonInput = applyForm.querySelector(`input[name="contact_reason"][value="${reasonValues[reasonParam]}"]`);
+      if (reasonInput) reasonInput.checked = true;
+    }
+
     const fileInput = document.getElementById('resume');
     const fileList = document.getElementById('file-list');
     const uploadArea = document.getElementById('file-upload-area');

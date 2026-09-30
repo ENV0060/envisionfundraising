@@ -76,7 +76,7 @@ Also worth a read: the new office descriptions for Mississauga, Denver, Houston 
 **Status:** Pending (waiting on final bios and photos from Ollie)
 **Priority:** Medium
 
-- **John MacInnis:** quote is final (2026-09-30), the "Sales showed me…" founder quote. The bio paragraph (Road Runner / TED Talk) and photo are still placeholders.
+- **John MacInnis:** bio and quote are final (2026-09-30). The bio is the "Sales showed me…" founder story and the quote is "Inspire Change." Only the photo is still a placeholder.
 - **Aidan Hughes:** bio, quote and photo are all still placeholders.
 
 Both live in `team.html` (`.team-featured-card`).

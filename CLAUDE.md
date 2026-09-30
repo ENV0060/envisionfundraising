@@ -330,7 +330,7 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 ## Pending / In Progress
 
 ### Placeholder Content to Replace
-- Team member descriptions & quotes still placeholder for: Michael Beatty, Krystal Shannon (`team.html`)
+- Team member descriptions & quotes still placeholder for: Krystal Shannon (`team.html`)
 - Supporting team grid section removed — all team members now in `.team-featured` cards
 - Testimonial names and roles (`about.html` — names are placeholder, roles say "[Charity Partner]" etc.)
 - Footer credit: `Website by [Your Name/Agency]`

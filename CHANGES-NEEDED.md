@@ -75,6 +75,6 @@ Also worth a read: the new office descriptions for Mississauga, Denver, Houston 
 
 **Status:** Done (2026-09-30). New bios, quotes and photos for John and Aidan, plus a new photo for Michael.
 
-Still placeholder on the team page: Michael Beatty's and Krystal Shannon's descriptions and quotes.
+Michael Beatty's bio and quote added (2026-09-30). Still placeholder on the team page: Krystal Shannon's description and quote.
 
 Both live in `team.html` (`.team-featured-card`).

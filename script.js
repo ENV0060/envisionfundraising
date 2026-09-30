@@ -4,6 +4,17 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---------- LOCATION PHOTO FALLBACK ---------- */
+  // Offices without a photo yet show a styled placeholder — adding the file to Location Photos/ fixes it automatically
+  const locationPhotoSelector = '.location-card img, .join-city-card img, .join-sidebar-card img, .page-hero-city-bg img';
+  const markMissingPhoto = img => img.parentElement.classList.add('no-photo');
+  document.querySelectorAll(locationPhotoSelector).forEach(img => {
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) markMissingPhoto(img);
+  });
+  document.addEventListener('error', e => {
+    if (e.target.matches && e.target.matches(locationPhotoSelector)) markMissingPhoto(e.target);
+  }, true);
+
   /* ---------- STICKY NAV SCROLL EFFECT ---------- */
   const nav = document.querySelector('.site-nav');
   if (nav) {
@@ -366,16 +377,17 @@ document.addEventListener('DOMContentLoaded', () => {
         photo: 'Location Photos/Ottawa, ON.jpg',
         tagline: 'Where it all started.',
         heading: 'The Ottawa Crew',
-        description: 'The founding city. Ottawa is where Envision began back in 2016 — a small team with a big idea about how fundraising should actually work. Today, the Ottawa office is still the heartbeat of the operation. If you want to learn from the people who built this thing from scratch, this is your squad.',
-        established: '2016'
+        description: 'The founding city. Ottawa is where Envision began back in 2014 — a small team with a big idea about how fundraising should actually work. Today, the Ottawa office is still the heartbeat of the operation. If you want to learn from the people who built this thing from scratch, this is your squad.',
+        established: '2014',
+        founding: true
       },
       toronto: {
-        name: 'Toronto / GTA',
+        name: 'Toronto',
         photo: 'Location Photos/Toronto, ON.jpg',
         tagline: 'The biggest stage in the country.',
         heading: 'The Toronto Squad',
-        description: 'The biggest market, the biggest energy. Toronto is where campaigns scale and careers accelerate. The GTA team covers a massive territory and they do it with style. Fast-paced, high-energy, and never boring — if you thrive in the action, Toronto is calling.',
-        established: '2017'
+        description: 'The biggest market, the biggest energy. Toronto is where campaigns scale and careers accelerate. Fast-paced, high-energy, and never boring — if you thrive in the action, Toronto is calling.',
+        established: '2016'
       },
       vancouver: {
         name: 'Vancouver',
@@ -383,6 +395,14 @@ document.addEventListener('DOMContentLoaded', () => {
         tagline: 'West coast, best coast.',
         heading: 'The Vancouver Team',
         description: 'Mountains, ocean, and a team that matches the energy. Vancouver was one of the first expansion cities and it shows — the crew out here runs tight campaigns with a laid-back West Coast edge. Great vibes, great results, and you might catch a sunset on your lunch break.',
+        established: '2017'
+      },
+      mississauga: {
+        name: 'Mississauga',
+        photo: 'Location Photos/Mississauga, ON.jpg',
+        tagline: 'Right next door to the big city — and holding its own.',
+        heading: 'The Mississauga Crew',
+        description: 'Just west of Toronto and every bit as driven. Mississauga has built its own identity since 2018 — a hungry team covering one of the fastest-growing cities in the country. Big-market reach, close-knit culture, and plenty of room to climb.',
         established: '2018'
       },
       calgary: {
@@ -391,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tagline: 'Alberta grit meets fundraising hustle.',
         heading: 'The Calgary Crew',
         description: 'Calgary doesn\'t mess around. The Alberta crew brings a work ethic that\'s hard to match and a culture that\'s even harder to leave. This team has grown fast because they keep it real — honest conversations, genuine connections, and results that speak for themselves.',
-        established: '2020'
+        established: '2018'
       },
       edmonton: {
         name: 'Edmonton',
@@ -399,23 +419,15 @@ document.addEventListener('DOMContentLoaded', () => {
         tagline: 'Cold winters, warm hearts.',
         heading: 'The Edmonton Team',
         description: 'Don\'t let the winters fool you — the Edmonton team brings the heat. A tight-knit group that punches way above its weight, this office has become a proving ground for some of Envision\'s most talented fundraisers. Small-city roots with big-city ambitions.',
-        established: '2021'
+        established: '2020'
       },
       halifax: {
         name: 'Halifax',
         photo: 'Location Photos/Halifax, NS.jpg',
-        tagline: 'East coast charm, brand new energy.',
+        tagline: 'East coast charm, big-time energy.',
         heading: 'The Halifax Crew',
-        description: 'The newest Canadian office, and already making waves. Halifax brings East Coast warmth to everything it does — the kind of place where donors actually want to stop and chat. If you\'re looking to get in on the ground floor of something special, this is it.',
-        established: '2025'
-      },
-      columbus: {
-        name: 'Columbus',
-        photo: 'Location Photos/Columbus, OH.jpg',
-        tagline: 'Our first American city.',
-        heading: 'The Columbus Team',
-        description: 'Envision goes stateside. Columbus is the launchpad for Envision\'s U.S. expansion — a city with serious energy and a fundraising team that\'s building something brand new. Get in now and help write the first chapter of Envision in America.',
-        established: '2025'
+        description: 'Halifax brings East Coast warmth to everything it does — the kind of place where donors actually want to stop and chat. A tight crew with a big reputation, and plenty of room to make your mark.',
+        established: '2023'
       },
       windsor: {
         name: 'Windsor',
@@ -423,11 +435,36 @@ document.addEventListener('DOMContentLoaded', () => {
         tagline: 'Small city energy, big results.',
         heading: 'The Windsor Team',
         description: 'Right on the border and full of surprises. Windsor is proof that you don\'t need a massive market to build a massive impact. This team is scrappy, hungry, and consistently outperforms expectations. Perfect for someone who wants to make a name for themselves.',
-        established: '2025'
+        established: '2024'
+      },
+      denver: {
+        name: 'Denver',
+        photo: 'Location Photos/Denver, CO.jpg',
+        tagline: 'Mile-high ambitions.',
+        heading: 'The Denver Team',
+        description: 'Envision goes stateside. Denver is one of our first U.S. offices — a brand-new team in a city that loves the outdoors almost as much as it loves a good cause. Get in early and help write the first chapter of Envision in America.',
+        established: '2026'
+      },
+      houston: {
+        name: 'Houston',
+        photo: 'Location Photos/Houston, TX.jpg',
+        tagline: 'Everything\'s bigger — including the opportunity.',
+        heading: 'The Houston Crew',
+        description: 'Our Texas launch. Houston is huge, diverse, and full of people who care — perfect territory for face-to-face fundraising. The team is brand new, so the leadership spots are wide open. Bring the energy and grow with it.',
+        established: '2026'
+      },
+      montreal: {
+        name: 'Montreal',
+        photo: 'Location Photos/Montreal, QC.jpg',
+        tagline: 'Bonjour, Montréal.',
+        heading: 'The Montreal Team',
+        description: 'Our newest Canadian office. Montreal brings culture, character, and a whole lot of heart — and now it\'s got an Envision team to match. Bilingual? Even better. Get in on the ground floor of something brand new.',
+        established: '2026'
       }
     };
 
-    const cityOrder = ['ottawa', 'toronto', 'vancouver', 'calgary', 'edmonton', 'halifax', 'columbus', 'windsor'];
+    const cityOrder = ['ottawa', 'toronto', 'vancouver', 'mississauga', 'calgary', 'edmonton', 'halifax', 'windsor', 'denver', 'houston', 'montreal'];
+
     let selectedCity = null;
 
     const sidebar = document.getElementById('join-sidebar');
@@ -530,6 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const city = cityData[key];
 
       // Update page hero with city info
+      heroCityImg.parentElement.classList.remove('no-photo');
       heroCityImg.src = city.photo;
       heroCityImg.alt = city.name;
       heroCityName.textContent = city.name;
@@ -547,6 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('detail-team-desc').textContent = city.description;
       document.getElementById('detail-team-stats').innerHTML = `
         <span class="join-team-stat">Since <span>${city.established}</span></span>
+        ${city.founding ? '<span class="join-team-stat">★ Founding Office</span>' : ''}
       `;
 
       // Show city-specific spotlight (e.g. Vancouver Directorship) only when it matches

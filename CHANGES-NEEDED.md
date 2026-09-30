@@ -38,30 +38,33 @@ Remove forwarding at GoDaddy and point real DNS records at Netlify so the browse
 
 ## 2. Wire up real social media links
 
+**Status:** Done (2026-09-30)
+
+Instagram, Facebook and X/Twitter were removed site-wide. LinkedIn is now the only social link and points to https://ca.linkedin.com/company/envision-fundraising (opens in a new tab), in every dropdown menu and footer. The FAQs link, placeholder phone number and placeholder office address were removed in the same pass.
+
+---
+
+## 3. Add location photos for the new offices
+
 **Status:** Pending
-**Priority:** Medium — currently 64 placeholder `href="#"` links across the site
+**Priority:** Medium. The cards work now but show a navy/gold placeholder instead of a skyline.
 
-### Problem
-Every page has 4 social icons (LinkedIn, Instagram, Facebook, X/Twitter) in both the dropdown menu and the footer — all pointing to `href="#"`. Clicking them does nothing.
+Drop these exact filenames into `Location Photos/` and they appear automatically on the homepage grid, join grid, sidebar and city hero. No code changes needed:
 
-### Note from Ollie
-Only Instagram is in active use right now — the rest of the platforms suck for our audience. So for now, hide/remove LinkedIn, Facebook, and X/Twitter icons across the site rather than wiring them up to dead pages.
+- `Mississauga, ON.jpg`
+- `Denver, CO.jpg`
+- `Houston, TX.jpg`
+- `Montreal, QC.jpg`
 
-### URLs in use
-- **Instagram**: https://www.instagram.com/envisionfundraising/
-- LinkedIn — pending (placeholder URL was incorrect)
-- Facebook — not in use
-- X/Twitter — not in use
+Landscape skyline shots work best (same style as the existing city photos).
 
-### Fix
-1. In every page (homepage dropdown, sub-page dropdowns, every footer), remove the LinkedIn / Facebook / X/Twitter `<a>` elements
-2. Update the remaining Instagram link to:
-   ```html
-   <a href="https://www.instagram.com/envisionfundraising/"
-      class="social-link"
-      aria-label="Instagram"
-      target="_blank"
-      rel="noopener noreferrer">Ig</a>
-   ```
-3. Files affected: `index.html`, `about.html`, `team.html`, `partner.html`, `charities.html`, `join.html`, `contact.html` (skip the save-state files unless we want them in sync)
-4. If/when LinkedIn goes live, add it back with same `target="_blank" rel="noopener noreferrer"` pattern
+---
+
+## 4. Review "20+ Cities" wording
+
+**Status:** Pending
+**Priority:** Low
+
+The homepage stats say **20+ Cities** and `about.html` says "operating across 20+ cities". The site now lists **11 offices**. That can still be accurate if campaigns reach more cities than there are offices. Confirm it or update the numbers.
+
+Also worth a read: the new office descriptions for Mississauga, Denver, Houston and Montreal in `script.js` (`cityData`) are draft copy.

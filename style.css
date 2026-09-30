@@ -695,6 +695,56 @@ body.dropdown-open .menu-toggle {
   letter-spacing: 0.5px;
 }
 
+/* Founding office (Ottawa) — inverted navy pill on the gold ticker */
+.ticker-item--highlight {
+  color: var(--gold);
+  background: var(--navy);
+  border-radius: 100px;
+  padding: 4px 16px;
+  margin: 0 12px;
+}
+
+.ticker-item--highlight .ticker-year {
+  opacity: 0.8;
+}
+
+/* ---------- Founding Office badge + missing-photo fallback (location cards) ---------- */
+.founding-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold);
+  padding: 5px 11px;
+  border-radius: 100px;
+  box-shadow: 0 0 16px rgba(212, 168, 75, 0.35);
+}
+
+.location-card--founding,
+.join-city-card--founding {
+  border-color: rgba(212, 168, 75, 0.45);
+  box-shadow: 0 0 24px rgba(212, 168, 75, 0.12);
+}
+
+.no-photo > img {
+  display: none;
+}
+
+.location-card.no-photo,
+.join-city-card.no-photo,
+.join-sidebar-card.no-photo,
+.page-hero-city-bg.no-photo {
+  background:
+    radial-gradient(circle at 75% 20%, rgba(212, 168, 75, 0.2) 0%, transparent 55%),
+    linear-gradient(135deg, #1a2a4a 0%, var(--dark-card) 100%);
+}
+
 @keyframes ticker-scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }

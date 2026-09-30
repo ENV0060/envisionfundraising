@@ -59,7 +59,7 @@ Envision - Website/
 │   ├── Calgary, AB.jpg
 │   ├── Edmonton, AB.webp
 │   ├── Halifax, NS.jpg
-│   ├── Columbus, OH.jpg
+│   ├── Columbus, OH.jpg    (unused — Columbus office removed)
 │   └── Windsor, ON.jpg
 ├── Charity Logos/           # Logo image files
 │   ├── Save the Children Logo.png
@@ -116,14 +116,14 @@ To view on phone: same Wi-Fi network, navigate to `http://<laptop-ip>:8080`.
    - Tagline: "Fundraising That Inspires Change." (changed from "Moves People"), subtitle, three CTA buttons (Partner With Us, Launch Your Campaign, Join a Team Near You)
    - Background: textured charcoal with vignette, subtle gold glow, faint crosshatch texture
    - Desktop hero padding: `70px 20px 0` (reduced from 100px for better vertical centering)
-   - **City ticker** at bottom of hero (not a separate section): gold gradient bar with scrolling city names + year labels (Ottawa 2016, Toronto 2017, Vancouver 2018, Calgary 2020, Edmonton 2021, Halifax 2025, Columbus 2025, Windsor 2025). Bar has `box-shadow` glow for softened edges.
+   - **City ticker** at bottom of hero (not a separate section): gold gradient bar with scrolling city names + year labels (Ottawa 2014, Toronto 2016, Vancouver 2017, Mississauga 2018, Calgary 2018, Edmonton 2020, Halifax 2023, Windsor 2024, Denver 2026, Houston 2026, Montreal 2026). Ottawa uses `.ticker-item--highlight` (navy pill) as the founding office. Bar has `box-shadow` glow for softened edges.
    - **Save states**: `index-new-logo.html` + `style-new-logo.css` preserve the previous [ENVISION] CSS text logo version
 
 3. **Impact Stats** — 4-column grid (12+ Years, 500K+ Donors, 20+ Cities, 10+ Partners). Count-up animation via IntersectionObserver + requestAnimationFrame with ease-out cubic. Full-width curved gold glow bleed from ticker above via `::before` pseudo-element using `radial-gradient(ellipse)`.
 
 4. **Curved Divider: Stats → Locations** — Gold SVG stroke curve (concave up) with horizontal `linearGradient` fading to transparent at edges. Frames the top of the locations section.
 
-5. **Locations Near You** — 8 city cards as `<a href="join.html">` links in a 4-column grid with real photos. Each card has a photo, gradient scrim overlay (`::before` with `:has(img)` selector), and city name label. Cities: Ottawa, Toronto/GTA, Vancouver, Calgary, Edmonton, Halifax, Columbus, Windsor. Background set to `transparent` so body gradient shows through. On **mobile (<=768px)**: converts to a 3D horizontal auto-scrolling carousel (see Mobile Carousel section below).
+5. **Locations Near You** — 11 city cards as `<a href="join.html#city-...">` links in a 4-column grid with real photos. Each card has a photo, gradient scrim overlay (`::before` with `:has(img)` selector), and city name label. Cities: Ottawa (Founding Office badge), Toronto, Vancouver, Mississauga, Calgary, Edmonton, Halifax, Windsor, Denver, Houston, Montreal. Cities without a photo yet get a `.no-photo` navy/gold fallback (see Location Photo Fallback). Background set to `transparent` so body gradient shows through. On **mobile (<=768px)**: converts to a 3D horizontal auto-scrolling carousel (see Mobile Carousel section below).
 
 6. **Curved Divider: Locations → Paths** — Gold SVG stroke curve (convex down) with same horizontal gradient fade. Frames the bottom of the locations section.
 
@@ -208,7 +208,7 @@ Interactive city explorer page for team recruitment:
 - `<body class="join-page">` — custom dark navy gradient (transitions to dark faster than other pages)
 - **Page Hero**: Dual-state hero — landing shows "Join a Team Near You" (Inter 600 weight, off-white) + 5 static team photos from `Photos/Company Team Photos/Join a Team Landing Photos/`. When city selected, hero transforms to city skyline photo with Ken Burns zoom, city name + tagline overlay.
 - **`.join-content-wrapper`**: Same radial gradient overlay pattern as partner/team/about pages. `::before` navy veil for seamless hero blend.
-- **City Selection Grid** (`.join-explorer`): 8 city cards in 4-column grid (`max-width: 1200px`). Each card: skyline photo, gradient scrim, city name + metadata (region, est. year). Bouncy hover (scale + translateY + gold border glow). Cities: Ottawa (2016), Toronto/GTA (2017), Vancouver (2018), Calgary (2020), Edmonton (2021), Halifax (2025), Columbus (2025), Windsor (2025).
+- **City Selection Grid** (`.join-explorer`): 11 city cards in 4-column grid (`max-width: 1200px`). Each card: skyline photo, gradient scrim, city name + metadata (region, est. year). Bouncy hover (scale + translateY + gold border glow). Cities: Ottawa (2014, founding), Toronto (2016), Vancouver (2017), Mississauga (2018), Calgary (2018), Edmonton (2020), Halifax (2023), Windsor (2024), Denver (2026), Houston (2026), Montreal (2026). City copy lives in `cityData` / `cityOrder` in script.js.
 - **City Detail View** (`.join-detail`): Two-column layout — left sidebar (220px sticky) with 7 other city thumbnail cards + "Join a Team Near You" label; right main panel with team info card, 6-photo collage (3x2 grid), Apply Now + View All Cities CTAs.
 - **Photo Collage**: 6 generic team photos from `Photos/Company Team Photos/` in 3-column CSS grid (210px rows, 12px gap). Photos cycle every 2.8s with opacity fade animation. Runtime filename-based dedup prevents same image from different paths. 30-second cooldown on removed photos before re-entering pool. Fisher-Yates shuffle for randomized order.
 - **Transitions**: Grid → detail (fade out/up → fade in/up with staggered sidebar + collage entrance). City swap via sidebar (crossfade main panel). Detail → grid via "View All Cities" button.
@@ -222,7 +222,7 @@ Application/contact form page with Netlify form integration:
 - `<body class="partner-page apply-page">` — reuses dark navy theme + apply-specific overrides
 - **Page Hero**: "Become an Envisionite Today" heading + "Your next chapter starts here." subtitle. Compact hero padding (`90px 0 24px` via `body.apply-page .page-hero`).
 - **Apply Form** (`.apply-form`): Netlify-powered form (`data-netlify="true"`, `name="apply"`) with honeypot spam protection (`netlify-honeypot="bot-field"`), `enctype="multipart/form-data"` for file uploads.
-  - Form fields: First Name\*, Last Name\*, City of Residence, City Applying To\* (select dropdown with 8 cities), Email\*, Phone Number
+  - Form fields: First Name\*, Last Name\*, City of Residence, City Applying To\* (select dropdown with 11 cities), Email\*, Phone Number
   - **Contact Reason**: Radio group with custom selection circles (`.select-circle`) — "Join a Team" (default), "Charity looking to launch a campaign", "Established Office(s) considering partnership"
   - **Preferred Contact Method**: Inline radio group — Email (default), Phone
   - **File Upload**: Drag-and-drop area with file list + remove buttons. Uses DataTransfer API for managing multiple files. Accepts PDF, DOC, DOCX, TXT, RTF, JPG, JPEG, PNG.
@@ -230,7 +230,7 @@ Application/contact form page with Netlify form integration:
   - **Submit**: Gold CTA button, client-side validation (required fields + email format)
 - **CTA Section**: "Looking for Something Else?" with Partner With Us + Join a Team links
 - Shared footer + nav with visible nav-links
-- Script tag uses cache buster: `script.js?v=13`
+- All pages use cache busters `style.css?v=16` / `script.js?v=16` — bump on every CSS/JS change
 
 ## Navigation — Unified Across All Pages
 
@@ -274,6 +274,8 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - **Stats counter**: requestAnimationFrame with ease-out cubic curve, triggered by IntersectionObserver
 - **Mobile locations carousel**: 3D horizontal auto-scroll with manual touch override
 - **City ticker**: Duplicates innerHTML for seamless CSS animation loop
+- **Location photo fallback**: At the top of script.js — any `.location-card`, `.join-city-card`, `.join-sidebar-card` or `.page-hero-city-bg` image that 404s gets `.no-photo` on its parent (hides img, shows navy/gold gradient). Adding the file to `Location Photos/` fixes it with no code change.
+- **Socials**: LinkedIn only (`https://ca.linkedin.com/company/envision-fundraising`). No phone, address or FAQ link on the site. Open follow-ups live in `CHANGES-NEEDED.md`.
 - **Apply form** (`#apply-form`): File upload with DataTransfer API (add/remove multiple files), drag-and-drop support, client-side validation (required fields + email format), scrolls to first error on invalid submit
 
 ## Key CSS Patterns
@@ -329,9 +331,6 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - Team member descriptions & quotes still placeholder for: Michael Beatty, Krystal Shannon (`team.html`)
 - Supporting team grid section removed — all team members now in `.team-featured` cards
 - Testimonial names and roles (`about.html` — names are placeholder, roles say "[Charity Partner]" etc.)
-- Social media URLs (footer + dropdown — all currently `#`)
-- Contact info: phone number is `+1 (000) 000-0000`, office address is `[Office Address Placeholder]`
-- FAQ section (dropdown links to `#faq` but no FAQ section exists on any page)
 - Footer credit: `Website by [Your Name/Agency]`
 
 ### Logo Situation

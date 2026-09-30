@@ -2459,7 +2459,7 @@ body.partner-page {
 
 .footer-inner {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.4fr 2fr 1fr 0.8fr;
   gap: 40px;
   margin-bottom: 40px;
 }
@@ -2506,6 +2506,52 @@ body.partner-page {
   color: var(--gold);
   border-bottom-color: rgba(212, 168, 75, 0.45);
   transform: scale(1.16);
+}
+
+/* Pages column — links in centered rows with gold dot separators */
+.footer-pages {
+  text-align: center;
+}
+
+.footer-pages .footer-pages-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 14px;
+}
+
+.footer-pages .footer-pages-row a {
+  display: inline-block;
+  margin: 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transform-origin: center;
+  white-space: nowrap;
+}
+
+.footer-pages .footer-pages-row a:hover {
+  border-bottom-color: rgba(212, 168, 75, 0.45);
+  transform: scale(1.08);
+}
+
+.footer-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .footer-pages .footer-pages-row {
+    gap: 8px 10px;
+  }
+  .footer-pages .footer-pages-row a {
+    font-size: 0.85rem;
+  }
 }
 
 .footer-contact a,

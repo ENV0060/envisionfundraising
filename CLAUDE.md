@@ -132,7 +132,7 @@ To view on phone: same Wi-Fi network, navigate to `http://<laptop-ip>:8080`.
    - For Charities → Launch Your Campaign → `charities.html`
    - For Individuals → Join a Team Near You → `join.html`
 
-8. **Footer** — 4-column grid: brand/tagline (Inspire Change logo image), page links, contact info, social links. Background `transparent` to show body gradient. Gold `border-top` at `rgba(212,168,75,0.15)` for separation. Contact info is placeholder. Homepage footer omits "Home" and "Contact" links. Page links have hover scale effect (`transform: scale(1.16)` with `transform-origin: left center`); contact links excluded from scale via `.footer-contact` class.
+8. **Footer** — 4-column grid (`1.4fr 2fr 1fr 0.8fr`): brand/tagline (Inspire Change logo image), Pages (`.footer-pages` — centered rows of links with gold dot `.footer-sep` separators: sub-pages show Home · Partner With Us · Launch a Campaign / Join a Team · Contact; homepage shows one row of Partner With Us · Launch a Campaign · Join a Team), Contact (email only), Follow Us (LinkedIn only). Background `transparent` to show body gradient. Gold `border-top` at `rgba(212,168,75,0.15)` for separation. Contact info is placeholder. Homepage footer omits "Home" and "Contact" links. Page links have hover scale effect (`transform: scale(1.16)` with `transform-origin: left center`); contact links excluded from scale via `.footer-contact` class.
 
 ### Visual Progression Effects
 The homepage uses several layered techniques to create a sense of scroll progression:

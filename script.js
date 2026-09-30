@@ -382,11 +382,11 @@ document.addEventListener('DOMContentLoaded', () => {
         founding: true
       },
       toronto: {
-        name: 'Toronto',
+        name: 'Toronto / GTA',
         photo: 'Location Photos/Toronto, ON.jpg',
         tagline: 'The biggest stage in the country.',
         heading: 'The Toronto Squad',
-        description: 'The biggest market, the biggest energy. Toronto is where campaigns scale and careers accelerate. Fast-paced, high-energy, and never boring — if you thrive in the action, Toronto is calling.',
+        description: 'The biggest market, the biggest energy. Toronto is where campaigns scale and careers accelerate — and with our Mississauga office running since 2018, the team covers the whole GTA. Fast-paced, high-energy, and never boring — if you thrive in the action, Toronto is calling.',
         established: '2016'
       },
       vancouver: {
@@ -396,14 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
         heading: 'The Vancouver Team',
         description: 'Mountains, ocean, and a team that matches the energy. Vancouver was one of the first expansion cities and it shows — the crew out here runs tight campaigns with a laid-back West Coast edge. Great vibes, great results, and you might catch a sunset on your lunch break.',
         established: '2017'
-      },
-      mississauga: {
-        name: 'Mississauga',
-        photo: 'Location Photos/Mississauga, ON.jpg',
-        tagline: 'Right next door to the big city — and holding its own.',
-        heading: 'The Mississauga Crew',
-        description: 'Just west of Toronto and every bit as driven. Mississauga has built its own identity since 2018 — a hungry team covering one of the fastest-growing cities in the country. Big-market reach, close-knit culture, and plenty of room to climb.',
-        established: '2018'
       },
       calgary: {
         name: 'Calgary',
@@ -463,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    const cityOrder = ['ottawa', 'toronto', 'vancouver', 'mississauga', 'calgary', 'edmonton', 'halifax', 'windsor', 'denver', 'houston', 'montreal'];
+    const cityOrder = ['ottawa', 'toronto', 'vancouver', 'calgary', 'edmonton', 'halifax', 'windsor', 'denver', 'houston', 'montreal'];
 
     let selectedCity = null;
 

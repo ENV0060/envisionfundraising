@@ -46,8 +46,9 @@ Instagram, Facebook and X/Twitter were removed site-wide. LinkedIn is now the on
 
 ## 3. Add location photos for the new offices
 
-**Status:** Pending
-**Priority:** Medium. The cards work now but show a navy/gold placeholder instead of a skyline.
+**Status:** Done (2026-09-30). Denver, Houston and Montreal photos added. Mississauga no longer needs one (it shares the Toronto / GTA card).
+
+The fallback below still applies to any future office:
 
 Drop these exact filenames into `Location Photos/` and they appear automatically on the homepage grid, join grid, sidebar and city hero. No code changes needed:
 
@@ -62,8 +63,7 @@ Landscape skyline shots work best (same style as the existing city photos).
 
 ## 4. Review "20+ Cities" wording
 
-**Status:** Pending
-**Priority:** Low
+**Status:** Done (2026-09-30). Homepage stat is now **11 Offices Across North America** and about.html says "with 11 offices across Canada and the United States".
 
 The homepage stats say **20+ Cities** and `about.html` says "operating across 20+ cities". The site now lists **11 offices**. That can still be accurate if campaigns reach more cities than there are offices. Confirm it or update the numbers.
 

@@ -78,3 +78,16 @@ Also worth a read: the new office descriptions for Mississauga, Denver, Houston 
 Michael Beatty's bio and quote added (2026-09-30). Still placeholder on the team page: Krystal Shannon's description and quote.
 
 Both live in `team.html` (`.team-featured-card`).
+
+---
+
+## 6. Edit the About Us page
+
+**Status:** Pending (Ollie to review, date added 2026-09-30)
+**Priority:** Medium
+
+`about.html` hasn't had a content pass since it was first built. Things that are known placeholders or worth revisiting:
+- **Testimonials:** names and roles are placeholders (Jessica Reynolds, Kai Mitchell, Rachel Morgan; roles like "[Charity Partner]")
+- **Our Story** intro and the three cards (Mission-First, Built Different, Real Impact): generic draft copy
+- **Values** section (Integrity, Excellence, People First, Growth): draft copy
+- Hero subtitle and overall tone, to match the newer pages (Launch Your Campaign, team bios)

@@ -175,7 +175,7 @@ Meet the Team page with:
   - Megan White — Campaign Coordinator (real photo: `Photos/Megan White.jpg`)
   - Krystal Shannon — Hiring & Communications (real photo: `Photos/Krystal Shannon.jpg`) [description placeholder]
   - Even-numbered cards use `flex-direction: row-reverse` for alternating layout
-  - Each has circular photo (200px, gold border), bio text, and italic quote
+  - Each has circular photo (200px, gold border), bio text, and italic quote. Photo framing is set per image with inline CSS variables `--photo-pos` (object-position), `--photo-zoom` (scale) and `--photo-origin` (transform-origin) — defaults are centered, no zoom
 - **CTA Section**: "Curious About Careers?" with editorial two-column layout (`.team-cta-row`):
   - "For Fundraisers" → Join a Team Near You → `join.html`
   - "For Leaders" → Launch an Office → `partner.html`

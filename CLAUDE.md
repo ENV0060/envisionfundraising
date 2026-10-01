@@ -170,7 +170,7 @@ Meet the Team page with:
   - Aidan Hughes — Vice President (`Photos/Aidan Hughes.jpg`) — records/strategy/support bio, quote "The only thing stopping you is you."
   - Oliver Beatty — Director Liaison & Analytics (real photo: `Photos/Oliver Beatty.png`) — full bio + quote ("Fear in the face of adversity...")
   - Michael Beatty — Payroll & Administration (`Photos/Michael Beatty.png`) — door-to-door fundraiser since 2016 bio, quote "Life is a lot easier if you always do what you say you're going to do."
-  - Krystal Shannon — Hiring & Communications (`Photos/Krystal Shannon.jpg?v=2`, cropped from a phone screenshot to 800px) — "first point of contact" bio, quote still placeholder
+  - Krystal Shannon — Director of Strategic Partnerships (`Photos/Krystal Shannon.jpg?v=2`, cropped from a phone screenshot to 800px) — "first point of contact" bio (ten years), quote by Angela Davis
   - Megan White — Campaign Coordinator (real photo: `Photos/Megan White.jpg`)
   - Even-numbered cards use `flex-direction: row-reverse` for alternating layout
   - Each has circular photo (200px, gold border), bio text, and italic quote. Photo framing is set per image with inline CSS variables `--photo-pos` (object-position), `--photo-zoom` (scale) and `--photo-origin` (transform-origin) — defaults are centered, no zoom
@@ -328,7 +328,6 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 ## Pending / In Progress
 
 ### Placeholder Content to Replace
-- Team member descriptions & quotes still placeholder: Krystal Shannon's quote (`team.html`)
 - Supporting team grid section removed — all team members now in `.team-featured` cards
 - Footer credit: `Website by [Your Name/Agency]`
 

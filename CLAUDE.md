@@ -202,7 +202,7 @@ Sleek, simple portal page for charities:
 - **Intro** (reuses `.partner-details-grid`): "Your mission, in person." copy left, "What We Handle" 6-item checklist panel right
 - **How It Works** (`.charity-steps`): 3 cards (01 We Listen / 02 We Train / 03 We Launch) with gold top accent that extends on hover
 - **Stats** (`.charity-stats`): reuses homepage `.stats-grid` counter, 3 items (12+ Years, 500,000+ Donors, 11 Offices)
-- **Final CTA** (`.charity-final-card`): "Let's put your cause in front of people."
+- **Final CTA** (`.charity-final-card`): "Let's get your cause in front of people."
 - **Not a Charity?**: `.team-cta-row` → Partner With Us / Join Our Team
 - All CTAs link to `contact.html?reason=charity`, which preselects the "Charity looking to launch a campaign" radio (also supports `?reason=team` / `?reason=partner`)
 

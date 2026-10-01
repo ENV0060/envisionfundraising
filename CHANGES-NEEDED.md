@@ -83,7 +83,7 @@ Both live in `team.html` (`.team-featured-card`).
 
 ## 6. Edit the About Us page
 
-**Status:** Pending (Ollie to review, date added 2026-09-30)
+**Status:** Done (2026-10-01). Redesigned: hero and Our Story merged, emoji cards and testimonials removed, values as an editorial list, Meet the Team card, three-up CTA.
 **Priority:** Medium
 
 `about.html` hasn't had a content pass since it was first built. Things that are known placeholders or worth revisiting:

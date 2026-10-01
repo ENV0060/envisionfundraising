@@ -1672,6 +1672,133 @@ body.about-page .paths-section {
   background: transparent;
 }
 
+/* --- About page (redesign): story hero, values list, three-up CTA --- */
+.about-hero-label {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.page-hero.about-hero p {
+  max-width: 720px;
+  color: var(--off-white);
+  opacity: 0.85;
+}
+
+.about-values {
+  position: relative;
+  z-index: 2; /* sit above the wrapper's navy hero-blend veil */
+  padding: 70px 0 30px;
+  background: transparent;
+}
+
+.about-values-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 64px;
+  max-width: 1050px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.about-values-intro {
+  position: sticky;
+  top: 120px;
+}
+
+.about-values-intro h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.about-values-intro p {
+  font-size: 1.02rem;
+  color: var(--grey-text);
+  line-height: 1.7;
+}
+
+.about-value {
+  position: relative;
+  padding: 26px 0 26px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-value:first-child {
+  padding-top: 0;
+}
+
+.about-value:last-child {
+  border-bottom: none;
+}
+
+.about-value::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 32px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(212, 168, 75, 0.4);
+}
+
+.about-value:first-child::before {
+  top: 6px;
+}
+
+.about-value h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.about-value p {
+  font-size: 0.97rem;
+  color: var(--grey-text);
+  line-height: 1.7;
+}
+
+.team-cta-row.team-cta-row--three {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  max-width: 1100px;
+}
+
+@media (max-width: 1024px) {
+  .team-cta-row.team-cta-row--three {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-values-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .about-values-intro {
+    position: static;
+    text-align: center;
+  }
+  .team-cta-row.team-cta-row--three {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .team-cta-row.team-cta-row--three .team-cta-block:nth-child(n) {
+    order: 0;
+  }
+}
+
 /* --- Team Page — Body-level gradient (no section seams) --- */
 body.team-page {
   background:

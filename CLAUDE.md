@@ -150,16 +150,14 @@ The homepage uses several layered techniques to create a sense of scroll progres
 
 ## Sub-Pages
 
-### about.html (Complete)
-About Us page with dark navy theme matching team/partner pages:
-- `<body class="about-page">` for page-specific styling (same navy gradient as team/partner)
-- **Page Hero**: "About Envision" heading + mission statement
-- **`.about-content-wrapper`**: Wraps all content sections (same pattern as `.team-paths-wrapper` / `.partner-content-wrapper`). Has radial gradient overlays (vignette, gold glow, teal glow) + `::before` navy veil for hero blend.
-- **Our Story** (`#our-story`): Intro paragraph + 3 cards (Mission-First, Built Different, Real Impact) using `.about-section` — dark card styling (`rgba(255,255,255,0.04)` background, white headings, grey text)
-- **Values** (`.values-section`): Dark theme with `section-heading--light` class, 2x2 grid of values (Integrity, Excellence, People First, Growth) using `.value-item` cards — dark backgrounds with white text
-- **Testimonials**: 3 quote cards (Jessica Reynolds, Kai Mitchell, Rachel Morgan — placeholder names/roles)
-- **CTA Path Cards**: "Ready to Work Together?" with 3 path cards
-- Shared footer + nav with visible nav-links
+### about.html (Complete — redesigned 2026-10-01)
+About Us page, rebuilt to match the newer pages (no emoji icons, no testimonials):
+- `<body class="about-page">` — navy gradient + `.about-content-wrapper` overlays (its `::before` navy veil covers the top 200px, so `.about-values` sits at `z-index: 2` above it)
+- **Hero + Our Story merged** (`.page-hero.about-hero`): gold "Our Story" label (`.about-hero-label`), `.hero-mixed` h1 "Built on conversations. **Driven by causes.**", and the Our Story paragraph as the hero text (500,000+ donors, sights set on a million)
+- **What We Stand For** (`.about-values`): two-column editorial layout — sticky intro left, four values right (Integrity, Excellence, People First, Always Growing) as `.about-value` rows with gold dot markers and hairline dividers
+- **Meet the Team card**: reuses `.charity-final-card` — "The people behind the conversations." → `team.html`
+- **Ready to Work Together?**: `.team-cta-row.team-cta-row--three` (3-column variant) → Partner With Us / Launch a Campaign / Join a Team; stacks in order on mobile
+- Old `.about-card`, `.values-grid`, `.testimonial-*` CSS is now unused (left in place)
 
 ### team.html (Complete)
 Meet the Team page with:
@@ -332,7 +330,6 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 ### Placeholder Content to Replace
 - Team member descriptions & quotes still placeholder: Krystal Shannon's quote (`team.html`)
 - Supporting team grid section removed — all team members now in `.team-featured` cards
-- Testimonial names and roles (`about.html` — names are placeholder, roles say "[Charity Partner]" etc.)
 - Footer credit: `Website by [Your Name/Agency]`
 
 ### Logo Situation

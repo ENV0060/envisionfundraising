@@ -1690,6 +1690,11 @@ body.about-page .paths-section {
   opacity: 0.85;
 }
 
+.page-hero.about-hero p strong {
+  color: var(--white);
+  font-weight: 700;
+}
+
 .about-values {
   position: relative;
   z-index: 2; /* sit above the wrapper's navy hero-blend veil */

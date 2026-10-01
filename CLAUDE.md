@@ -152,8 +152,8 @@ The homepage uses several layered techniques to create a sense of scroll progres
 
 ### about.html (Complete — redesigned 2026-10-01)
 About Us page, rebuilt to match the newer pages (no emoji icons, no testimonials):
-- `<body class="about-page">` — navy gradient + `.about-content-wrapper` overlays (its `::before` navy veil covers the top 200px, so `.about-values` sits at `z-index: 2` above it)
-- **Hero + Our Story merged** (`.page-hero.about-hero`): gold "Our Story" label (`.about-hero-label`), `.hero-mixed` h1 "Built on conversations. **Driven by causes.**", and the Our Story paragraph as the hero text (500,000+ donors, sights set on a million)
+- `<body class="about-page">` — navy gradient. The hero sits INSIDE `.about-content-wrapper` so the overlays span hero + content with no seam (the old `::before` navy veil was removed)
+- **Hero + Our Story merged** (`.page-hero.about-hero`): large Envision logo (`.about-hero-logo`, 84px / 60px mobile, `filter: invert(1)`), `.hero-mixed` h1 "Built on conversations. **Driven by causes.**", and the Our Story paragraph as the hero text (500,000+ donors, sights set on a million)
 - **What We Stand For** (`.about-values`): two-column editorial layout — sticky intro left, four values right (Integrity, People First, Excellence, Always Growing) as `.about-value` rows with gold dot markers and hairline dividers
 - **Meet the Team card**: reuses `.charity-final-card` — "The people behind the conversations." → `team.html`
 - **Ready to Work Together?**: `.team-cta-row.team-cta-row--three` (3-column variant) → Partner With Us / Launch a Campaign / Join a Team; stacks in order on mobile

@@ -1592,18 +1592,7 @@ body.about-page {
   position: relative;
 }
 
-/* Seamless hero blend */
-.about-content-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 200px;
-  background: linear-gradient(to bottom, #0B1F3A, transparent);
-  pointer-events: none;
-  z-index: 1;
-}
+/* No hero-blend veil needed: the about hero sits inside .about-content-wrapper, so overlays span it seamlessly */
 
 body.about-page .page-hero {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.08) 30%, transparent 60%);
@@ -1673,15 +1662,19 @@ body.about-page .paths-section {
 }
 
 /* --- About page (redesign): story hero, values list, three-up CTA --- */
-.about-hero-label {
-  display: inline-block;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 18px;
+.about-hero-logo {
+  display: block;
+  height: 84px;
+  width: auto;
+  margin: 0 auto 26px;
+  filter: invert(1);
+}
+
+@media (max-width: 768px) {
+  .about-hero-logo {
+    height: 60px;
+    margin-bottom: 20px;
+  }
 }
 
 .page-hero.about-hero p {

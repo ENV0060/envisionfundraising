@@ -875,6 +875,19 @@ body.dropdown-open .menu-toggle {
   gap: 20px;
 }
 
+/* Grid view (above the mobile carousel): 8 columns, cards span 2, so a partial last row can be centered */
+@media (min-width: 769px) {
+  .locations-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+  .locations-grid > .location-card {
+    grid-column: span 2;
+  }
+  .locations-grid > .location-card:nth-child(4n+1):nth-last-child(1) { grid-column: 4 / span 2; }
+  .locations-grid > .location-card:nth-child(4n+1):nth-last-child(2) { grid-column: 3 / span 2; }
+  .locations-grid > .location-card:nth-child(4n+1):nth-last-child(3) { grid-column: 2 / span 2; }
+}
+
 a.location-card {
   text-decoration: none;
   color: inherit;

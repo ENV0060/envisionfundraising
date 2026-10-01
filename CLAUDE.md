@@ -167,7 +167,7 @@ Meet the Team page with:
   - `::before` pseudo-element creates a dark navy veil (200px) that fades the page-hero into the team section
 - **Featured Team** (`.team-featured`): Side-by-side photo + bio cards for:
   - John MacInnis — CEO & Founder (`Photos/John MacInnis.png?v=2`) — founder-story bio ("Sales showed me…"), quote "Inspire Change."
-  - Aidan Hughes — Vice President (`Photos/Aidan Hughes.jpg`) — records/strategy/support bio, quote "The only thing stopping you is you."
+  - Aidan Hughes — C.O.O. (`Photos/Aidan Hughes.jpg`) — records/strategy/support bio, quote "Macro patience, micro speed."
   - Oliver Beatty — Director Liaison & Analytics (real photo: `Photos/Oliver Beatty.png`) — full bio + quote ("Fear in the face of adversity...")
   - Michael Beatty — Payroll & Administration (`Photos/Michael Beatty.png`) — door-to-door fundraiser since 2016 bio, quote "Life is a lot easier if you always do what you say you're going to do."
   - Krystal Shannon — Director of Strategic Partnerships (`Photos/Krystal Shannon.jpg?v=2`, cropped from a phone screenshot to 800px) — "first point of contact" bio (ten years), quote by Angela Davis

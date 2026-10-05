@@ -382,6 +382,19 @@ document.addEventListener('DOMContentLoaded', () => {
       'Photos/Company Team Photos/2026 Gala/SLA3625.jpg',
       'Photos/Company Team Photos/2026 Gala/SLA3646.jpg'
     ];
+
+    // Per-photo crop points for collage tiles (default is CSS `center 22%`).
+    // Tall selfies with faces low in the frame need the crop moved down.
+    const photoFocus = {
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.30.14.jpg': 'center 65%',
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.33.31.jpg': 'center 65%',
+      'Photos/Company Team Photos/FLARE Teams/2607200253510320142.jpeg': 'center 50%',
+      'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.30.32.jpg': 'center 50%'
+    };
+    const setCollagePhoto = (img, src) => {
+      img.src = src;
+      img.style.objectPosition = photoFocus[src] || '';
+    };
     const COLLAGE_SIZE = 6;
     let collageInterval = null;
 
@@ -562,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const doSwap = () => {
           item.classList.add('cycling-out');
           setTimeout(() => {
-            item.querySelector('img').src = newPhoto;
+            setCollagePhoto(item.querySelector('img'), newPhoto);
             item.classList.remove('cycling-out');
             item.classList.add('cycling-in');
             setTimeout(() => item.classList.remove('cycling-in'), 500);
@@ -637,7 +650,8 @@ document.addEventListener('DOMContentLoaded', () => {
       displayedPhotos.forEach((photo, i) => {
         const item = document.createElement('div');
         item.className = 'join-collage-item';
-        item.innerHTML = `<img src="${photo}" alt="Team photo" loading="lazy">`;
+        item.innerHTML = `<img alt="Team photo" loading="lazy">`;
+        setCollagePhoto(item.querySelector('img'), photo);
         collage.appendChild(item);
         setTimeout(() => item.classList.add('visible'), 200 + i * 80);
       });

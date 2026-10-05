@@ -119,7 +119,7 @@ To view on phone: same Wi-Fi network, navigate to `http://<laptop-ip>:8080`.
    - **City ticker** at bottom of hero (not a separate section): gold gradient bar with scrolling city names + year labels (Ottawa 2014, Toronto 2016, Vancouver 2017, Mississauga 2018, Calgary 2018, Edmonton 2020, Halifax 2023, Windsor 2024, Denver 2026, Houston 2026, Montreal 2026). Ottawa uses `.ticker-item--highlight` (navy pill) as the founding office. Mississauga keeps its own ticker entry (2018) but shares the Toronto / GTA card everywhere else. Bar has `box-shadow` glow for softened edges.
    - **Save states**: `index-new-logo.html` + `style-new-logo.css` preserve the previous [ENVISION] CSS text logo version
 
-3. **Impact Stats** — 4-column grid (12+ Years, 500K+ Donors, 11 Offices, 10+ Partners). Count-up animation via IntersectionObserver + requestAnimationFrame with ease-out cubic. Full-width curved gold glow bleed from ticker above via `::before` pseudo-element using `radial-gradient(ellipse)`.
+3. **Impact Stats** — 4-column grid (12+ Years, 500K+ Donors, 16 Offices, 10+ Partners). Count-up animation via IntersectionObserver + requestAnimationFrame with ease-out cubic. Full-width curved gold glow bleed from ticker above via `::before` pseudo-element using `radial-gradient(ellipse)`.
 
 4. **Curved Divider: Stats → Locations** — Gold SVG stroke curve (concave up) with horizontal `linearGradient` fading to transparent at edges. Frames the top of the locations section.
 
@@ -201,7 +201,7 @@ Sleek, simple portal page for charities:
 - **Page Hero** (`.hero-mixed`): "You've got the cause. **We've got the voice.**" + subtitle + Launch Your Campaign button
 - **Intro** (reuses `.partner-details-grid`): "Your mission, in person." copy left, "What We Handle" 6-item checklist panel right
 - **How It Works** (`.charity-steps`): 3 cards (01 We Listen / 02 We Train / 03 We Launch) with gold top accent that extends on hover
-- **Stats** (`.charity-stats`): reuses homepage `.stats-grid` counter, 3 items (12+ Years, 500,000+ Donors, 11 Offices)
+- **Stats** (`.charity-stats`): reuses homepage `.stats-grid` counter, 3 items (12+ Years, 500,000+ Donors, 16 Offices)
 - **Final CTA** (`.charity-final-card`): "Let's get your cause in front of people."
 - **Not a Charity?**: `.team-cta-row` → Partner With Us / Join Our Team
 - All CTAs link to `contact.html?reason=charity`, which preselects the "Charity looking to launch a campaign" radio (also supports `?reason=team` / `?reason=partner`)
@@ -344,7 +344,7 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - Personality-driven copy (team bios are witty/bold, not corporate)
 
 ## Director Openings (Open Positions)
-- **Join page**: `directorOpenings` object in script.js (next to `cityData`) lists hiring cities (currently Ottawa, Vancouver, Halifax) with a per-city lead paragraph. `renderCityContent()` fills `#spotlight-city-name`, `#spotlight-lead`, `#spotlight-meta` and toggles `.active` on `#detail-city-spotlight`. Add/remove a city by editing that object only.
-- **Partner page**: "Open Positions · Director" card (`.partner-spotlight-card`) with three city tiles (`.partner-spotlight-cities`) linking to `join.html#city-...`. Keep this list in sync with `directorOpenings`.
-- Pay chip ($39–42/hr) is shared across all openings.
+- **Join page**: `directorOpenings` object in script.js (next to `cityData`) lists hiring cities (currently Ottawa and Vancouver; Halifax removed 2026-10-05 once its team was filled) with a per-city lead paragraph. `renderCityContent()` fills `#spotlight-city-name`, `#spotlight-lead`, `#spotlight-meta` and toggles `.active` on `#detail-city-spotlight`. Add/remove a city by editing that object only.
+- **Partner page**: "Open Positions · Director" card (`.partner-spotlight-card`) with city tiles (`.partner-spotlight-cities`, auto-fit grid) linking to `join.html#city-...`. Keep this list in sync with `directorOpenings`.
+- No hourly pay is shown anymore (pay chips removed 2026-10-05); "What You'll Get" says "Competitive pay that rewards performance". The old `.partner-spotlight-pay` / `.join-city-spotlight-pay` CSS is unused.
 - Ottawa has no active office right now but stays listed (founding city, Director opening to relaunch it).

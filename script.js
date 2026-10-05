@@ -462,9 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       vancouver: {
         lead: 'Vancouver is home to four teams and ready for a fifth. We\'re looking for a Director to build it from the ground up. If you can train, hire, and lead — this is your shot at running an office.'
-      },
-      halifax: {
-        lead: 'Halifax is growing, and we\'re looking for a Director ready to take the East Coast to the next level. If you can train, hire, and lead — this is your shot at running an office.'
       }
     };
 

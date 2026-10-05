@@ -366,7 +366,21 @@ document.addEventListener('DOMContentLoaded', () => {
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.30.32.jpg',
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.31.11.jpg',
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.31.46.jpg',
-      'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.33.59.jpg'
+      'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.33.59.jpg',
+      // 2026 Gala — web-sized copies (originals are 5–17 MB camera files kept outside the site)
+      'Photos/Company Team Photos/2026 Gala/SLA3342.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3347.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3349.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3437.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3491.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3497.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3504.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3547.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3550.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3552.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3606.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3625.jpg',
+      'Photos/Company Team Photos/2026 Gala/SLA3646.jpg'
     ];
     const COLLAGE_SIZE = 6;
     let collageInterval = null;

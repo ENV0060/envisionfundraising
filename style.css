@@ -3577,7 +3577,7 @@ body.join-city-active .site-nav .menu-toggle {
   object-fit: cover;
   object-position: center 22%; /* favour the top so portrait shots keep heads in frame */
   display: block;
-  transition: transform 0.5s ease, opacity 0.8s ease;
+  transition: transform 0.5s ease, opacity 0.45s ease;
 }
 
 .join-collage-item:hover img {
@@ -3592,6 +3592,7 @@ body.join-city-active .site-nav .menu-toggle {
   background: var(--fit-bg) center / cover no-repeat;
   filter: blur(18px) brightness(0.55);
   z-index: 0;
+  transition: opacity 0.45s ease;
 }
 
 .join-collage-item.is-fit img {
@@ -3599,19 +3600,10 @@ body.join-city-active .site-nav .menu-toggle {
   z-index: 1;
 }
 
-/* Collage cycling animation — opacity only, no scale to prevent jitter */
-.join-collage-item.cycling-out img {
+/* Collage swap: photo and its blurred backdrop fade out and back in together (one transition, no competing animation) */
+.join-collage-item.swapping img,
+.join-collage-item.swapping::before {
   opacity: 0;
-  transition: opacity 0.4s ease-out;
-}
-
-.join-collage-item.cycling-in img {
-  animation: collage-fade-in 0.5s ease-out;
-}
-
-@keyframes collage-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 /* Team description */

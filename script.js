@@ -573,23 +573,72 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Slots take turns: each round visits all 6 in shuffled order. The slots changed most recently
+    // go to the back of the next round, so a freshly swapped photo stays up for at least ~4 swaps.
+    let slotQueue = [];
+    let recentSlots = [];
+    const busySlots = new Set();
+    let collageGen = 0; // bumped on each initCollage so stale timers from a previous visit are ignored
+
+    function nextSlot(count) {
+      for (let tries = 0; tries < count * 2; tries++) {
+        if (!slotQueue.length) {
+          const fresh = shuffle([...Array(count).keys()].filter(s => !recentSlots.includes(s)));
+          slotQueue = [...fresh, ...recentSlots.filter(s => s < count)];
+        }
+        const slot = slotQueue.shift();
+        if (!busySlots.has(slot)) {
+          recentSlots = [...recentSlots.filter(s => s !== slot), slot].slice(-Math.floor(count / 2));
+          return slot;
+        }
+      }
+      return -1;
+    }
+
+    const FADE_MS = 450;
+
+    function swapSlot(item, slotIdx, newPhoto, gen) {
+      busySlots.add(slotIdx);
+      const img = item.querySelector('img');
+      const finish = () => { if (gen === collageGen) busySlots.delete(slotIdx); };
+      // Load and decode off-screen first, so the fade-in never shows a half-drawn photo
+      const preload = new Image();
+      preload.src = newPhoto;
+      const ready = (preload.decode ? preload.decode() : Promise.resolve()).catch(() => {});
+      ready.then(() => {
+        if (gen !== collageGen) return;
+        item.classList.add('swapping'); // fades photo + blurred backdrop out together
+        setTimeout(() => {
+          if (gen !== collageGen) return;
+          setCollagePhoto(img, newPhoto);
+          const shown = img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+          shown.then(() => requestAnimationFrame(() => {
+            if (gen !== collageGen) return;
+            item.classList.remove('swapping'); // ...and back in together
+            setTimeout(finish, FADE_MS);
+          }));
+        }, FADE_MS);
+      });
+    }
+
     function startCollageCycle() {
       stopCollageCycle();
+      const gen = collageGen;
       collageInterval = setInterval(() => {
         const collage = document.getElementById('detail-team-collage');
         const items = collage.querySelectorAll('.join-collage-item');
         if (items.length === 0 || photoPool.length === 0) return;
 
-        // Pick a random slot to swap
-        const slotIdx = Math.floor(Math.random() * items.length);
-        // Pick a new photo from the pool
+        const slotIdx = nextSlot(items.length);
+        if (slotIdx === -1) return;
+
         const newPhoto = photoPool.shift();
-        // Put the old photo on 30s cooldown instead of back in pool
+        // Put the old photo on a 30s cooldown before it can come back
         const oldPhoto = displayedPhotos[slotIdx];
         displayedPhotos[slotIdx] = newPhoto;
         cooldownPhotos.push(oldPhoto);
         setTimeout(() => {
-          // After 30s, move from cooldown back to pool
+          if (gen !== collageGen) return;
           const idx = cooldownPhotos.indexOf(oldPhoto);
           if (idx !== -1) {
             cooldownPhotos.splice(idx, 1);
@@ -597,25 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }, 30000);
 
-        const item = items[slotIdx];
-        // Preload new image, then crossfade
-        const preload = new Image();
-        preload.src = newPhoto;
-        const doSwap = () => {
-          item.classList.add('cycling-out');
-          setTimeout(() => {
-            setCollagePhoto(item.querySelector('img'), newPhoto);
-            item.classList.remove('cycling-out');
-            item.classList.add('cycling-in');
-            setTimeout(() => item.classList.remove('cycling-in'), 500);
-          }, 400);
-        };
-        if (preload.complete) {
-          doSwap();
-        } else {
-          preload.onload = doSwap;
-          preload.onerror = doSwap; // fallback if load fails
-        }
+        swapSlot(items[slotIdx], slotIdx, newPhoto, gen);
       }, 2800);
     }
 
@@ -674,6 +705,10 @@ document.addEventListener('DOMContentLoaded', () => {
       displayedPhotos = shuffled.slice(0, COLLAGE_SIZE);
       photoPool = shuffled.slice(COLLAGE_SIZE);
       cooldownPhotos = [];
+      collageGen++;
+      slotQueue = [];
+      recentSlots = [];
+      busySlots.clear();
 
       const collage = document.getElementById('detail-team-collage');
       collage.innerHTML = '';

@@ -397,7 +397,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // { fit: true } zooms out to show the whole photo over a blurred copy of itself;
     // add zoom (e.g. 1.4) to zoom partway back in, anchored at `pos` (default: top centre).
     const photoFocus = {
-      'Photos/Company Team Photos/2026 Gala/SLA3342.jpg': { fit: true, pos: 'center' },
+      'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.28.59.jpg': 'center 40%',
+      'Photos/Company Team Photos/2026 Gala/SLA3547.jpg': { fit: true, zoom: 1.6 },
       'Photos/Company Team Photos/2026 Gala/SLA3550.jpg': 'center 0%',
       'Photos/Company Team Photos/2026 Gala/SLA3552.jpg': 'center 0%',
       'Photos/Company Team Photos/2026 Gala/SLA3606.jpg': { fit: true, zoom: 1.4 },

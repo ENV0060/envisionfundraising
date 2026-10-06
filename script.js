@@ -362,6 +362,15 @@ document.addEventListener('DOMContentLoaded', () => {
       'Photos/Company Team Photos/FLARE Teams/2607200253510320142.jpeg',
       'Photos/Company Team Photos/FLARE Teams/4528505928960839980.jpeg',
       'Photos/Company Team Photos/FLARE Teams/8697860766244300564.jpeg',
+      // FLARE Teams additions — web-sized copies renamed from the phone-export filenames
+      'Photos/Company Team Photos/FLARE Teams/flare-08885905.jpg',
+      'Photos/Company Team Photos/FLARE Teams/flare-122eda7f.jpg',
+      'Photos/Company Team Photos/FLARE Teams/flare-1887ca2a.jpg',
+      'Photos/Company Team Photos/FLARE Teams/flare-35d62ded.jpg',
+      'Photos/Company Team Photos/FLARE Teams/flare-579bbbe4.jpg',
+      'Photos/Company Team Photos/FLARE Teams/flare-be57733d.jpg',
+      'Photos/Company Team Photos/FLARE Teams/flare-d6033224.jpg',
+      'Photos/Company Team Photos/FLARE Teams/flare-fd0a7743.jpg',
       // Removed duplicate: ghdZDFEyncgLVw8vGIaHJdX1acgN0aQUaciSWy5oZnQeJxFPc.jpg (same as Calgary copy)
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.30.32.jpg',
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.31.11.jpg',
@@ -389,6 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.30.14.jpg': 'center 65%',
       'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.33.31.jpg': 'center 65%',
       'Photos/Company Team Photos/FLARE Teams/2607200253510320142.jpeg': 'center 50%',
+      'Photos/Company Team Photos/FLARE Teams/flare-122eda7f.jpg': 'center 75%',
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.30.32.jpg': 'center 50%'
     };
     const setCollagePhoto = (img, src) => {

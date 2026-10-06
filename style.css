@@ -3584,6 +3584,21 @@ body.join-city-active .site-nav .menu-toggle {
   transform: scale(1.05);
 }
 
+/* Zoomed-out photos (photoFocus { fit: true }): whole photo over a soft blurred copy of itself */
+.join-collage-item.is-fit::before {
+  content: '';
+  position: absolute;
+  inset: -24px;
+  background: var(--fit-bg) center / cover no-repeat;
+  filter: blur(18px) brightness(0.55);
+  z-index: 0;
+}
+
+.join-collage-item.is-fit img {
+  position: relative;
+  z-index: 1;
+}
+
 /* Collage cycling animation — opacity only, no scale to prevent jitter */
 .join-collage-item.cycling-out img {
   opacity: 0;

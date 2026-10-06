@@ -392,9 +392,15 @@ document.addEventListener('DOMContentLoaded', () => {
       'Photos/Company Team Photos/2026 Gala/SLA3646.jpg'
     ];
 
-    // Per-photo crop points for collage tiles (default is CSS `center 22%`).
-    // Tall selfies with faces low in the frame need the crop moved down.
+    // Per-photo crop for collage tiles (default is CSS `center 22%`).
+    // A string moves the crop point (tall selfies with faces low in the frame need it moved down).
+    // { fit: true } zooms out to show the whole photo over a blurred copy of itself;
+    // add zoom (e.g. 1.4) to zoom partway back in, anchored at `pos` (default: top centre).
     const photoFocus = {
+      'Photos/Company Team Photos/2026 Gala/SLA3342.jpg': { fit: true, pos: 'center' },
+      'Photos/Company Team Photos/2026 Gala/SLA3550.jpg': 'center 0%',
+      'Photos/Company Team Photos/2026 Gala/SLA3552.jpg': 'center 0%',
+      'Photos/Company Team Photos/2026 Gala/SLA3606.jpg': { fit: true, zoom: 1.4 },
       'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.30.14.jpg': 'center 65%',
       'Photos/Company Team Photos/Calgary Team Photos/2026-03-10 13.33.31.jpg': 'center 65%',
       'Photos/Company Team Photos/FLARE Teams/2607200253510320142.jpeg': 'center 50%',
@@ -402,8 +408,19 @@ document.addEventListener('DOMContentLoaded', () => {
       'Photos/Company Team Photos/Vancouver Team Photos/2026-03-10 13.30.32.jpg': 'center 50%'
     };
     const setCollagePhoto = (img, src) => {
+      const focus = photoFocus[src];
+      const fit = typeof focus === 'object' && focus !== null;
+      const pos = fit ? (focus.pos || 'center top') : (focus || '');
       img.src = src;
-      img.style.objectPosition = photoFocus[src] || '';
+      img.style.objectPosition = pos;
+      img.style.objectFit = fit ? 'contain' : '';
+      img.style.transform = fit && focus.zoom ? `scale(${focus.zoom})` : '';
+      img.style.transformOrigin = fit ? pos : '';
+      const item = img.closest('.join-collage-item');
+      if (item) {
+        item.classList.toggle('is-fit', fit);
+        item.style.setProperty('--fit-bg', fit ? `url("${encodeURI(src)}")` : 'none');
+      }
     };
     const COLLAGE_SIZE = 6;
     let collageInterval = null;
@@ -461,6 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
       windsor: {
         name: 'Windsor',
         photo: 'Location Photos/Windsor, ON.jpg',
+        bannerPos: 'center 35%', // city-page banner crop: a little more skyline, a little less water
         tagline: 'Small city energy, big results.',
         heading: 'The Windsor Team',
         description: 'Right on the border and full of surprises. Windsor is proof that you don\'t need a massive market to build a massive impact. The crew here is close-knit and driven — the kind of team that celebrates every win together. Perfect for someone who wants to make a name for themselves.',
@@ -608,6 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update page hero with city info
       heroCityImg.parentElement.classList.remove('no-photo');
       heroCityImg.src = city.photo;
+      heroCityImg.style.objectPosition = city.bannerPos || '';
       heroCityImg.alt = city.name;
       heroCityName.textContent = city.name;
       heroCityTagline.textContent = city.tagline;

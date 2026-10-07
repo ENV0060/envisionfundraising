@@ -515,6 +515,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const directorOpenings = {
       ottawa: {
         lead: 'Ottawa is where Envision started, and we\'re ready to bring it back. We\'re looking for a Director to rebuild our founding city from the ground up. If you can train, hire, and lead — this is your shot at running an office.'
+      },
+      vancouver: {
+        lead: 'Vancouver is home to four teams and ready for a fifth. We\'re looking for a Director to build it from the ground up. If you can train, hire, and lead — this is your shot at running an office.'
       }
     };
 

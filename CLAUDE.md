@@ -345,7 +345,7 @@ The locations grid converts to a 3D horizontal auto-scrolling carousel on mobile
 - Personality-driven copy (team bios are witty/bold, not corporate)
 
 ## Director Openings (Open Positions)
-- **Join page**: `directorOpenings` object in script.js (next to `cityData`) lists hiring cities (currently Ottawa only; Halifax removed 2026-10-05, Vancouver removed 2026-10-06) with a per-city lead paragraph. `renderCityContent()` fills `#spotlight-city-name`, `#spotlight-lead`, `#spotlight-meta` and toggles `.active` on `#detail-city-spotlight`. Add/remove a city by editing that object only.
+- **Join page**: `directorOpenings` object in script.js (next to `cityData`) lists hiring cities (currently Ottawa and Vancouver; Halifax removed 2026-10-05 once its team was filled) with a per-city lead paragraph. `renderCityContent()` fills `#spotlight-city-name`, `#spotlight-lead`, `#spotlight-meta` and toggles `.active` on `#detail-city-spotlight`. Add/remove a city by editing that object only.
 - **Partner page**: "Open Positions · Director" card (`.partner-spotlight-card`) with city tiles (`.partner-spotlight-cities`, auto-fit grid) linking to `join.html#city-...`. Keep this list in sync with `directorOpenings`.
 - No hourly pay is shown anymore (pay chips removed 2026-10-05); "What You'll Get" says "Competitive pay that rewards performance". The old `.partner-spotlight-pay` / `.join-city-spotlight-pay` CSS is unused.
 - Ottawa has no active office right now but stays listed (founding city, Director opening to relaunch it).
